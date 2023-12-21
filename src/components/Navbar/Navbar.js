@@ -18,6 +18,8 @@ export const Navbar = () => {
        
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
+
+       {/* LOGIN LOGOUT BUTTON OR USER PROFILE */}
        <RightContent/>
 
     </Flex>
