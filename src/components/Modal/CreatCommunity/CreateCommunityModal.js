@@ -19,6 +19,10 @@ import {
 } from '@chakra-ui/react'
 import {BsFillEyeFill, BsFillPersonFill} from "react-icons/bs";
 import {HiLockClosed} from "react-icons/hi";
+import { getHeadersWithProjectID } from '../../utils/projectID';
+import axios from 'axios';
+import { getHeadersWithUserToken } from '../../utils/headersWithUserToken';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
   
@@ -26,10 +30,16 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
   const [charRemaining, setCharRemaining] = useState(21);
   const [communityType, setCommunityType] = useState("public");
   const [errorMessage, setErrorMessage] = useState('');
+  const [btnLoading, setBtnLoading] = useState(false);
+  const navigateTo = useNavigate();
+  
 
   function handleInputChange(e){
-    setErrorMessage('');
+
+   if(errorMessage) setErrorMessage('');
+
     if(e.target.value.length > 21) return;
+
     setCommunityName(e.target.value);
     setCharRemaining(21 - e.target.value.length)
 
@@ -40,6 +50,37 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
       setCommunityType(e.target.name);
   }
 
+
+  const createGroup = async (groupName)=>{
+        const config = getHeadersWithUserToken();
+
+        const body = {
+          name: groupName
+        }
+
+        try{
+          const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', body, config);
+          console.log("create comm response", response.data);
+          navigateTo(`/${response.data.data._id}`)
+          handleClose();
+          setBtnLoading(false);
+          
+        }
+        catch(error){
+          setBtnLoading(false);
+          console.log("create comm error", error);
+          try {
+            //  IF GOT ERROR FROM API
+              setErrorMessage(error.response.data.message + ". Try different name");
+          } catch (err) {
+              
+              setErrorMessage('Network Error');
+          }
+        }
+  }
+
+
+
   function handleCreateCommunity(){
     // Validate Community
     const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\?~]/;
@@ -49,6 +90,12 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
        );
        return;
     }
+
+    // After validating create community
+    setBtnLoading(true);
+    createGroup(communityName);
+      
+
   }
 
   return (
@@ -104,6 +151,8 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
             {charRemaining} Characters remaining
             </Text>
 
+            {errorMessage && <Text color='red' fontSize='10pt'>{errorMessage}</Text>}
+
             <Box mt={4} mb={4}>
               <Text fontWeight={600} fontSize={15}>
                 Community Type
@@ -153,7 +202,7 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
             </Box>
 
           </ModalBody>
-          {errorMessage && <Text color='red' fontSize='10pt'>{errorMessage}</Text>}
+        
           </Box>
 
 
@@ -170,6 +219,7 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
             <Button variant='solid'
              height="31px"
              onClick={handleCreateCommunity}
+             isLoading={btnLoading}
             >
               Create Community
               </Button>
