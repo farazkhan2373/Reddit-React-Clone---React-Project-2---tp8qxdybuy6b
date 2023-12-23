@@ -2,20 +2,31 @@ import { Flex, Image } from '@chakra-ui/react'
 import React from 'react'
 import { SearchInput } from './SearchInput'
 import { RightContent } from './RightContent/RightContent'
+import { Directory } from './Directory/Directory'
+import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 
 export const Navbar = () => {
+  const {isLoggedIn} = userLogInStore();
   return (
-    <Flex bg='white' height='44px' padding='6px 12px'>
+    <Flex bg='white' height='44px' 
+          padding='6px 12px'
+          justify={{md: 'space-between'}}
+          >
 
        {/* NAVBAR -> LOGO DIV  */}
-       <Flex align='center'>
+       <Flex align='center'
+             width={{base: "40px", md: "auto"}}
+             mr={{base: 0, md: 2}}
+             >
         <Image src="/images/redditFace.svg" height='30px'/>
         <Image src="/images/redditText.svg" 
         height='46px'
-        //media query [base -> mobile screen, md: unset = oposite of none
+        //unset = oposite of none
         display={{base: 'none', md: 'unset'}}/>
        </Flex>
        
+       {/* HOME ICON AND DIRECTORY */}
+       {isLoggedIn && <Directory/>}
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
 

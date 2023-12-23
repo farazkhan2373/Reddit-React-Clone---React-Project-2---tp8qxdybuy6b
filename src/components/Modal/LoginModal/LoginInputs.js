@@ -41,7 +41,13 @@ export const LoginInputs = () => {
         }
         catch(error){
            console.log('error', error);
-           setErrorMessage(error.response.data.message);
+           try {
+             setErrorMessage(error.response.data.message);
+             
+           } catch (e) {
+           
+             setErrorMessage(error.message);
+           }
            setButtonLoading(false);
 
         }

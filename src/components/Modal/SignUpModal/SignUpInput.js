@@ -31,7 +31,12 @@ export const SignUpInput = () => {
          }
          catch(error){
             console.log('error', error);
+            try{
             setErrorMessage(error.response.data.message);
+            }
+            catch(e){
+                setErrorMessage(error.message);
+            }
             setButtonLoading(false);
 
          }

@@ -1,10 +1,12 @@
 import { PhoneIcon, SearchIcon } from '@chakra-ui/icons'
 import { Center, Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
+import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 
 export const SearchInput = () => {
+    const {isLoggedIn} = userLogInStore();
     return (
-        <Flex flexGrow={1} align='center' mr={2}>
+        <Flex flexGrow={1} maxWidth={isLoggedIn ? 'auto' : '600px'} align='center' mr={2}>
             <InputGroup >
                 <InputLeftElement pointerEvents='none'>
                     <SearchIcon color='gray.400' mb={1}/>
