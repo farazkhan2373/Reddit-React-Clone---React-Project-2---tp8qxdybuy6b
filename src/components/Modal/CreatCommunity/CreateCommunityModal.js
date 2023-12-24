@@ -61,7 +61,7 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
         try{
           const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', body, config);
           console.log("create comm response", response.data);
-          navigateTo(`/${response.data.data._id}`)
+          navigateTo(`/community/${response.data.data._id}`);
           handleClose();
           setBtnLoading(false);
           
