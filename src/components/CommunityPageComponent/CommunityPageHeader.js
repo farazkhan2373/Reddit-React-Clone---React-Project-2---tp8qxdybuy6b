@@ -1,10 +1,28 @@
 import { Box, Button, Flex, Icon, Text, useStatStyles } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { FaReddit } from 'react-icons/fa'
+import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
+import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 
 export const CommunityPageHeader = ({communityData}) => {
     
     const [isJoined, setIsJoined] = useState(false);
+    const {isLoggedIn} = userLogInStore();
+    const {setSignUpModal} = useSignUpModalStore();
+
+    function removeSpace(str){
+      let removedSpacesText = str.split(" ").join("");
+      return removedSpacesText
+  }
+
+    function handleJoinCommunityButton(){
+      if(!isLoggedIn){
+          setSignUpModal(true);
+          return;
+      }
+
+      setIsJoined(!isJoined);
+    }
 
   return (
     <Flex direction="column" width="100%" height="146px" >
@@ -26,7 +44,7 @@ export const CommunityPageHeader = ({communityData}) => {
                     fontWeight={800} 
                     fontSize="16pt"
                     >
-                    {communityData.name}
+                    {removeSpace(communityData.name)}
                     </Text>
 
                     <Text 
@@ -34,19 +52,19 @@ export const CommunityPageHeader = ({communityData}) => {
                     fontSize="10pt"
                     color="gray.400"
                     >
-                    r/{communityData.name}
+                    r/{removeSpace(communityData.name)}
                     </Text>
                 </Flex>
 
                 <Button 
-                variant={isJoined ? "outline" : "solid"}
+                variant={isLoggedIn ? isJoined ? "outline" : "solid" : 'solid'}
                 height="30px"
                 pr={6}
                 pl={6}
-                onClick={()=>setIsJoined(!isJoined)}
+                onClick={handleJoinCommunityButton}
 
                 >
-                   {isJoined ? "Joined" : "Join"}   
+                   {isLoggedIn ? isJoined ? 'Joined' : 'Join'  : 'Join'}   
                 </Button>
             </Flex>
 

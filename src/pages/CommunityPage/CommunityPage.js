@@ -6,6 +6,7 @@ import { CommunityNotFound } from '../../components/CommunityPageComponent/Commu
 import { Heading } from '@chakra-ui/react';
 import { CommunityPageHeader } from '../../components/CommunityPageComponent/CommunityPageHeader';
 import { AllPagesLayout } from '../../components/Layout/AllPagesLayout';
+import { AboutCommunityRHS } from '../../components/CommunityPageComponent/AboutCommunityRHS';
 
 
 export const CommunityPage = () => {
@@ -36,7 +37,7 @@ export const CommunityPage = () => {
     getCommunity(channelId);
 
 
-  }, []);
+  }, [channelId]);
 
   return communityData ? communityData === 'Community not found' ? <CommunityNotFound /> :
 
@@ -54,7 +55,7 @@ export const CommunityPage = () => {
           
          {/* below fragment will go into all pages layout flex children[1] RHS */}
         <>
-        <div>RHS</div>
+        <AboutCommunityRHS communityData={communityData}/>
         </>
       </AllPagesLayout>
     </>

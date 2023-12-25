@@ -13,8 +13,6 @@ export const Navbar = () => {
     <Flex bg='white' height='44px' 
           padding='6px 12px'
           justify={{md: 'space-between'}}
-          position='sticky'
-          top='0px'
           >
 
        {/* NAVBAR -> LOGO DIV  */}

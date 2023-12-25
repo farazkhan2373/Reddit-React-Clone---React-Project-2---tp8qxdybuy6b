@@ -6,6 +6,7 @@ import axios from 'axios';
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
+import { PostLoader } from '../LoadingComponents/PostLoader';
 
 export const HomePagePosts = () => {
 
@@ -58,7 +59,7 @@ export const HomePagePosts = () => {
         {postData ? postData.length > 0 && postData.map((post, index)=>(
             <PostItem post= {post} key={index} increaseVote={increaseVote}/>
              
-        )) : <Heading>Loading...</Heading>}
+        )) : <PostLoader/>}
     </Stack>
     </>
   )
