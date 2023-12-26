@@ -1,14 +1,26 @@
 import { Flex, Image } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchInput } from './SearchInput'
 import { RightContent } from './RightContent/RightContent'
 import { Directory } from './Directory/Directory'
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { getHeadersWithProjectID } from '../utils/projectID'
+import axios from 'axios'
 
 export const Navbar = () => {
+
+
   const {isLoggedIn} = userLogInStore();
+  const [selectedItem, setSelectedItem] = useState('Home');
   const navigateTo = useNavigate();
+
+  function handleLogoClick(){
+      navigateTo('/');
+      setSelectedItem('Home');
+  }
+
+
   return (
     <Flex bg='white' height='44px' 
           padding='6px 12px'
@@ -20,7 +32,7 @@ export const Navbar = () => {
              width={{base: "40px", md: "auto"}}
              mr={{base: 0, md: 2}}
              cursor='pointer'
-             onClick={()=>navigateTo('/')}
+             onClick={handleLogoClick}
              >
         <Image src="/images/redditFace.svg" height='30px'/>
         <Image src="/images/redditText.svg" 
@@ -30,7 +42,7 @@ export const Navbar = () => {
        </Flex>
        
        {/* HOME ICON AND DIRECTORY */}
-       {isLoggedIn && <Directory/>}
+       {isLoggedIn && <Directory selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>}
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
 

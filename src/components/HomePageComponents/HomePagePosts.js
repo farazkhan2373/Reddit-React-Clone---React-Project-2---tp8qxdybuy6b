@@ -15,6 +15,23 @@ export const HomePagePosts = () => {
   const {isLoggedIn, setIsLoggedIn} = userLogInStore();
   const {setSignUpModal} = useSignUpModalStore();
 
+  const fetchPosts = async ()=>{
+    const config = getHeadersWithProjectID();
+    try{
+        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post', config);
+        console.log("posts", response.data.data);
+        setPostData(response.data.data);
+    }
+    catch(error){
+        console.log('error');
+    }
+}
+
+useEffect(()=>{
+    fetchPosts();
+
+}, [])
+
    const increaseVote = async (postId)=>{
 
       if(!isLoggedIn){
@@ -23,12 +40,13 @@ export const HomePagePosts = () => {
       }
   
       const config = getHeadersWithUserToken();
-      const userDetails = {
+       // in newton doc body is not given but here it's failing if we don't pass body
+      const body = {
         appType: "reddit"
       }
 
       try{
-         const response = await axios.post(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, userDetails, config);
+         const response = await axios.post(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, body, config);
          console.log("upVoted post successfully", response.data);
          fetchPosts();  //  after Upvoting, fetch post again to show the correct count
       }
@@ -37,27 +55,35 @@ export const HomePagePosts = () => {
       }
    }
 
-    const fetchPosts = async ()=>{
-        const config = getHeadersWithProjectID();
-        try{
-            const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post', config);
-            console.log("posts", response.data.data);
-            setPostData(response.data.data);
-        }
-        catch(error){
-            console.log('error');
-        }
-    }
+   const decreaseVote = async (postId)=>{
 
-    useEffect(()=>{
-        fetchPosts();
+      if(!isLoggedIn){
+         setSignUpModal(true);
+         return;
+      }
+  
+      const config = getHeadersWithUserToken();
+      // in newton doc body is not given but here it's failing if we don't pass body
+      const body = {
+        appType: "reddit"
+      }
 
-    }, [])
+      try{
+         const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, config);
+         console.log("downVoted post successfully", response.data);
+         fetchPosts();  //  after downVoting, fetch post again to show the correct count
+      }
+      catch(error){
+        console.log('fail to downVote', error.response);
+      }
+   }
+
+    
   return (
     <>
     <Stack>
         {postData ? postData.length > 0 && postData.map((post, index)=>(
-            <PostItem post= {post} key={index} increaseVote={increaseVote}/>
+            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote}/>
              
         )) : <PostLoader/>}
     </Stack>

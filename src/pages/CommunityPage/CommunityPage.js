@@ -7,6 +7,7 @@ import { Heading } from '@chakra-ui/react';
 import { CommunityPageHeader } from '../../components/CommunityPageComponent/CommunityPageHeader';
 import { AllPagesLayout } from '../../components/Layout/AllPagesLayout';
 import { AboutCommunityRHS } from '../../components/CommunityPageComponent/AboutCommunityRHS';
+import { getHeadersWithProjectID } from '../../components/utils/projectID';
 
 
 export const CommunityPage = () => {
@@ -17,7 +18,7 @@ export const CommunityPage = () => {
 
 
   const getCommunity = async (channelId) => {
-    const config = getHeadersWithUserToken();
+    const config = getHeadersWithProjectID();
 
     try {
       const response = await axios.get(`https://academics.newtonschool.co/api/v1/reddit/channel/${channelId}`, config);
@@ -33,7 +34,7 @@ export const CommunityPage = () => {
   }
 
   useEffect(() => {
-    //  get community function is working fine geting response
+    //  getCommunity function is working fine geting response
     getCommunity(channelId);
 
 

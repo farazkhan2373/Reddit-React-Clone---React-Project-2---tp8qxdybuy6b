@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Flex,
     Icon,
@@ -9,12 +9,61 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {TiHome} from 'react-icons/ti';
+import { FaReddit } from 'react-icons/fa'
 import userLogInStore from '../../../store/AuthenticationStore/userLogInStore';
 import { Communities } from './Communities';
+import { useNavigate } from 'react-router-dom';
+import { getHeadersWithProjectID } from '../../utils/projectID'
+import axios from 'axios'
 
 
-export const Directory = () => {
+export const Directory = ({selectedItem, setSelectedItem}) => {
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
+  
+  const [createdCommunityData, setCreatedCommunityData] = useState(null);
+
+  const navigateTo = useNavigate();
+
+  // this handleCommunityClick function passing it as prop in Communities.js this from there to CreatedCommunityList.js
+  function handleCommunityClick(e, communityID){
+    
+    console.log(e.target.innerText);
+    const selectedRoute = e.target.innerText;
+
+    if(selectedRoute === 'Home'){
+      setSelectedItem(e.target.innerText);
+      navigateTo('/')
+      return;
+    }
+
+    navigateTo(`/community/${communityID}`);
+    setSelectedItem(selectedRoute); // setting the text of menu button on selecting community
+  }
+
+
+  const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails'));
+
+  const getCreatedCommunityList = async ()=>{
+    const config = getHeadersWithProjectID();
+
+    try{
+      const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/channel?limit=1000', config); // fetching all channels list
+      //console.log("all communities list", response.data.data);
+      const allChannels = response.data.data;
+      const userCreatedChannels = allChannels.filter((item)=>{   // filtering user created channels only
+        return item.owner._id === loggedInUserDetails._id;
+      })
+      console.log('created channels', userCreatedChannels);
+      setCreatedCommunityData(userCreatedChannels);             // seting user created channels to state
+    }
+    catch(error){
+      console.log("error in fetching communities", error.response);
+    }
+  }
+
+  useEffect(()=>{
+    getCreatedCommunityList();
+  }, []);
 
 
   return (
@@ -34,9 +83,10 @@ export const Directory = () => {
             width={{base: "auto", lg: '200px'}}  
           >
             <Flex align='center'>
-             <Icon as={TiHome} fontSize={24} mr={{base: 1, md: 2}}/>
+             <Icon as={selectedItem === 'Home' ? TiHome : FaReddit} fontSize={24} mr={{base: 1, md: 2}} color={selectedItem !== 'Home' && "blue.500"}/>
              <Flex display={{base: "none", lg: 'flex'}}>
-              <Text fontWeight={600} fontSize='10pt'>Home</Text>
+              {/* BELOW IS MENU BUTTON TEXT */}
+              <Text fontWeight={600} fontSize='10pt'>{selectedItem}</Text> 
              </Flex>
 
             </Flex>
@@ -46,7 +96,7 @@ export const Directory = () => {
         }
       </MenuButton>
       <MenuList>
-        <Communities/>
+        <Communities createdCommunityData={createdCommunityData} handleCommunityClick={handleCommunityClick}/>
       </MenuList>
     </Menu>
   )

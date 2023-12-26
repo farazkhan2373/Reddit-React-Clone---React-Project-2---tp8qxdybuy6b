@@ -8,7 +8,7 @@ import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import axios from 'axios';
 
-export const PostItem = ({post, increaseVote}) => {
+export const PostItem = ({post, increaseVote, decreaseVote}) => {
 
   const token = sessionStorage.getItem('userToken');
   const {isLoggedIn, setIsLoggedIn} = userLogInStore();
@@ -50,6 +50,7 @@ export const PostItem = ({post, increaseVote}) => {
            cursor="pointer"
            _hover={{ color: "brand.100"}}
            fontSize={24}
+           onClick={()=>decreaseVote(post._id)}
            />
 
         </Flex>
