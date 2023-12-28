@@ -27,8 +27,9 @@ export const UserMenuModal = () => {
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
 
   function handleLogout(){
-    sessionStorage.removeItem('userToken');
-    sessionStorage.removeItem('loggedInUserDetails');
+    // sessionStorage.removeItem('userToken');
+    // sessionStorage.removeItem('loggedInUserDetails');
+    sessionStorage.clear();
     setIsLoggedIn(false); 
   }
 

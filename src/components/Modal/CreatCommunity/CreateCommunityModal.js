@@ -23,8 +23,11 @@ import { getHeadersWithProjectID } from '../../utils/projectID';
 import axios from 'axios';
 import { getHeadersWithUserToken } from '../../utils/headersWithUserToken';
 import { useNavigate } from 'react-router-dom';
+import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore';
 
 export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
+
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
   
   const [communityName, setCommunityName] = useState('');
   const [charRemaining, setCharRemaining] = useState(21);
@@ -62,7 +65,8 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
           const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', body, config);
           console.log("create comm response", response.data);
           navigateTo(`/community/${response.data.data._id}`);
-          location.reload();
+          location.reload(); // refreshing page it will add name of new created community in menu list
+          sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);
           handleClose();
           setBtnLoading(false);
           

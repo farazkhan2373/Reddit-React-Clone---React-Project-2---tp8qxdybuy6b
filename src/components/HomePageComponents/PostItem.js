@@ -64,23 +64,25 @@ export const PostItem = ({post, increaseVote, decreaseVote}) => {
             align="center"
             fontSize="9pt"
           >
-            <Image src={post.author.profileImage}
+           {post.author.profileImage ? <Image src={post.author.profileImage}
              height={6} 
              width={6} 
              borderRadius='50%'
             objectFit='cover'
             mr={1}
-            />
-           {/* <Icon as={FaReddit} fontSize={20} mr={1} color="gray.400"/> */}
-          <Text>Posted by r/{post.channel.name}</Text>
+            /> 
+            : 
+            <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100"/>}
+           {post.channel && <Text mr={1}>r/{post.channel.name}</Text>}
+           <Text>posted by {post.author.name}</Text>
           </Stack>
           {/* <Text fontSize="12pt">Post title</Text> */}
           <Text fontSize="10pt">{post.content}</Text>
           <Flex justify="center" align="center" p={2}>
-            <Image height="300px" maxWidth='100%' objectFit='cover'
+          {post.channel &&  <Image height="300px" maxWidth='100%' objectFit='cover'
             src={post.channel.image}
             alt='Post-Image'
-            />
+            />}
           </Flex>
           </Stack>
 

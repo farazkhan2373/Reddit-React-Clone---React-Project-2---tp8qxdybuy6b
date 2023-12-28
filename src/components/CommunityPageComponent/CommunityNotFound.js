@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Flex, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore';
 
 export const CommunityNotFound = () => {
+
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
+
+  useEffect(()=>{
+   setMenuButtonText('Oops!!!')
+  }, [])
+
+  
   return (
     <Flex
      direction="column"

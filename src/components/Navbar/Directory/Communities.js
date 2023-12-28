@@ -7,12 +7,14 @@ import {FaArrowUpRightDots} from 'react-icons/fa6'
 import { CreatedCommunityList } from './CreatedCommunityList'
 import { getHeadersWithProjectID } from '../../utils/projectID'
 import axios from 'axios'
+import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore'
 
 
 export const Communities = ({createdCommunityData, handleCommunityClick}) => {
 
 
   const [showCommunityModal, setCommunityModal] = useState(false);
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
   
 
 

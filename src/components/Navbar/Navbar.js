@@ -7,18 +7,26 @@ import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../utils/projectID'
 import axios from 'axios'
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 
 export const Navbar = () => {
 
-
   const {isLoggedIn} = userLogInStore();
-  const [selectedItem, setSelectedItem] = useState('Home');
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
+  const location = useLocation();
   const navigateTo = useNavigate();
 
   function handleLogoClick(){
       navigateTo('/');
-      setSelectedItem('Home');
+      sessionStorage.setItem('menuButtonText', 'Home');
+      setMenuButtonText('Home');
   }
+
+  useEffect(()=>{
+    if(location.pathname === '/'){
+      setMenuButtonText('Home');
+    }
+  }, [location.pathname])
 
 
   return (
@@ -42,7 +50,7 @@ export const Navbar = () => {
        </Flex>
        
        {/* HOME ICON AND DIRECTORY */}
-       {isLoggedIn && <Directory selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>}
+       {isLoggedIn && <Directory />}
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
 

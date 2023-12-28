@@ -26,14 +26,14 @@ export const CommunityPageHeader = ({communityData}) => {
 
   return (
     <Flex direction="column" width="100%" height="146px" >
-        <Box height="50%" bg="blue.400" />
+        <Box height="50%" bg="brand.100" />
         <Flex justify="center" bg="white"  flexFlow={1}>
             <Flex width="95%" maxWidth="860px" >
               <Icon as={FaReddit}
                 fontSize={64}
                 position="relative"
                 top={-3}
-                color="blue.500"
+                color="brand.100"
                 border="4px solid white"
                 borderRadius="50%"
                 />

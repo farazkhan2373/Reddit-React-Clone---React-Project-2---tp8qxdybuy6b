@@ -8,6 +8,8 @@ import { CommunityPageHeader } from '../../components/CommunityPageComponent/Com
 import { AllPagesLayout } from '../../components/Layout/AllPagesLayout';
 import { AboutCommunityRHS } from '../../components/CommunityPageComponent/AboutCommunityRHS';
 import { getHeadersWithProjectID } from '../../components/utils/projectID';
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore';
+import { CreatePostLink } from '../../components/CommunityPageComponent/CreatePostLink';
 
 
 export const CommunityPage = () => {
@@ -15,6 +17,7 @@ export const CommunityPage = () => {
   const [communityData, setCommunityData] = useState(null);
   const { channelId } = useParams();
   console.log("channelId", channelId);
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
 
 
   const getCommunity = async (channelId) => {
@@ -24,6 +27,10 @@ export const CommunityPage = () => {
       const response = await axios.get(`https://academics.newtonschool.co/api/v1/reddit/channel/${channelId}`, config);
       console.log("fetch successfull", response.data.data);
       setCommunityData(response.data.data);
+
+      sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);
+      const updatedText = sessionStorage.getItem('menuButtonText');
+      setMenuButtonText(updatedText);
     }
     catch (err) {
       console.log("error is fetching community");
@@ -47,11 +54,7 @@ export const CommunityPage = () => {
       <AllPagesLayout>
         {/* below fragment will go into all pages layout flex children[0] LHS */}
         <>
-        <div>LHS</div>
-        <div>LHS</div>
-        <div>LHS</div>
-        <div>LHS</div>
-        <div>LHS</div>
+        <CreatePostLink/>
         </>
           
          {/* below fragment will go into all pages layout flex children[1] RHS */}

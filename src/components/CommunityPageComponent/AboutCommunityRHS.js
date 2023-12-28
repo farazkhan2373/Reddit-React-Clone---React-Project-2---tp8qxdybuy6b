@@ -22,7 +22,7 @@ export const AboutCommunityRHS = ({communityData}) => {
        <Flex
         justify="space-between"
         align="center"
-        bg="blue.400"
+        bg="brand.100"
         color="white"
         p={3}
         borderRadius="4px 4px 0px 0px"

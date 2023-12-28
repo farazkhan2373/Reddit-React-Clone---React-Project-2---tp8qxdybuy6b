@@ -15,7 +15,7 @@ export const CreatedCommunityList = ({community, handleCommunityClick}) => {
     onClick={(e)=> handleCommunityClick(e, community._id)}
      >
       <Flex align="center"> 
-        <Icon as={FaReddit} fontSize={20} mr={2} color="blue.500" />
+        <Icon as={FaReddit} fontSize={20} mr={2} color="brand.100" />
         {`r/${community.name}`}
       </Flex>
 

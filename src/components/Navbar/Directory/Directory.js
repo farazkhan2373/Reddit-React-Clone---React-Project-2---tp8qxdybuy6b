@@ -10,16 +10,18 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {TiHome} from 'react-icons/ti';
 import { FaReddit } from 'react-icons/fa'
+import { MdError } from 'react-icons/md'
 import userLogInStore from '../../../store/AuthenticationStore/userLogInStore';
 import { Communities } from './Communities';
 import { useNavigate } from 'react-router-dom';
 import { getHeadersWithProjectID } from '../../utils/projectID'
 import axios from 'axios'
+import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore';
 
 
-export const Directory = ({selectedItem, setSelectedItem}) => {
+export const Directory = () => {
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
-  
+  const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
   const [createdCommunityData, setCreatedCommunityData] = useState(null);
 
   const navigateTo = useNavigate();
@@ -31,13 +33,15 @@ export const Directory = ({selectedItem, setSelectedItem}) => {
     const selectedRoute = e.target.innerText;
 
     if(selectedRoute === 'Home'){
-      setSelectedItem(e.target.innerText);
+      setMenuButtonText(selectedRoute);
+      sessionStorage.setItem('menuButtonText', 'Home');
       navigateTo('/')
       return;
     }
 
     navigateTo(`/community/${communityID}`);
-    setSelectedItem(selectedRoute); // setting the text of menu button on selecting community
+    setMenuButtonText(selectedRoute);  // setting the text of menu button on selecting community
+    sessionStorage.setItem('menuButtonText', selectedRoute);
   }
 
 
@@ -83,10 +87,10 @@ export const Directory = ({selectedItem, setSelectedItem}) => {
             width={{base: "auto", lg: '200px'}}  
           >
             <Flex align='center'>
-             <Icon as={selectedItem === 'Home' ? TiHome : FaReddit} fontSize={24} mr={{base: 1, md: 2}} color={selectedItem !== 'Home' && "blue.500"}/>
+             <Icon as={menuButtonText === 'Home' ? TiHome : menuButtonText === 'Oops!!!' ? MdError : FaReddit  } fontSize={24} mr={{base: 1, md: 2}} color={menuButtonText !== 'Home' && "brand.100"}/>
              <Flex display={{base: "none", lg: 'flex'}}>
               {/* BELOW IS MENU BUTTON TEXT */}
-              <Text fontWeight={600} fontSize='10pt'>{selectedItem}</Text> 
+              <Text fontWeight={600} fontSize='10pt'>{menuButtonText}</Text> 
              </Flex>
 
             </Flex>

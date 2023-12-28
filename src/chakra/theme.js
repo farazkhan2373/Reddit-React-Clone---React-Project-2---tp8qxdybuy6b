@@ -12,6 +12,7 @@ export const theme = extendTheme({
   colors: {
     brand: {
       100: "#FF3c00",
+      200: "#db3502"
     },
   },
 //   giving font family almost same as reddit 
