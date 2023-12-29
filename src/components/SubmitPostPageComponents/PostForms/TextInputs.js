@@ -45,9 +45,9 @@ export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isL
         <Button
           height="34px"
           padding="0px 30px"
-          disabled={!textInputs.title}
+          isDisabled={!textInputs.title}
           isLoading={isLoading}
-          onClick={()=>{}}
+          onClick={handleCreatePost}
 
         >Post</Button>
        </Flex>

@@ -6,7 +6,7 @@ import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore'
 import { useNavigate } from 'react-router-dom'
 
-export const CreatePostLink = () => {
+export const CreatePostLink = ({channelId}) => {
    
     const {setSignUpModal} = useSignUpModalStore();
     const {isLoggedIn} = userLogInStore();
@@ -19,7 +19,7 @@ export const CreatePostLink = () => {
          }
       
         //  if a logged in user
-        navigateTo('/submitpost');
+        navigateTo('/submitpost', {state: {channelId}});
 
     }
 

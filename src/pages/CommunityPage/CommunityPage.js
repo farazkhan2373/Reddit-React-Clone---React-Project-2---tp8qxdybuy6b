@@ -10,14 +10,20 @@ import { AboutCommunityRHS } from '../../components/CommunityPageComponent/About
 import { getHeadersWithProjectID } from '../../components/utils/projectID';
 import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore';
 import { CreatePostLink } from '../../components/CommunityPageComponent/CreatePostLink';
+import { CommunityPosts } from '../../components/CommunityPageComponent/CommunityPosts';
+import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
+import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 
 
 export const CommunityPage = () => {
 
   const [communityData, setCommunityData] = useState(null);
+  const [communityPosts, setCommunityPosts] = useState(null);
   const { channelId } = useParams();
-  console.log("channelId", channelId);
+  // console.log("channelId", channelId);
   const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
+  const {showSignUpModal, setSignUpModal} = useSignUpModalStore();
+  const {isLoggedIn} = userLogInStore();
 
 
   const getCommunity = async (channelId) => {
@@ -25,7 +31,7 @@ export const CommunityPage = () => {
 
     try {
       const response = await axios.get(`https://academics.newtonschool.co/api/v1/reddit/channel/${channelId}`, config);
-      console.log("fetch successfull", response.data.data);
+      console.log("single community data", response.data.data);
       setCommunityData(response.data.data);
 
       sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);
@@ -40,12 +46,83 @@ export const CommunityPage = () => {
     }
   }
 
+  const getPostsOfCommunity = async ()=>{
+    const config = getHeadersWithProjectID();
+    try{
+         const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post?limit=1000', config);
+         console.log("all posts fetched successfully", response.data.data);
+         const allPosts = response.data.data;
+         const channelPosts = allPosts.filter((post)=>{
+          if(post.channel){
+            return channelId === post.channel._id; 
+          }
+         });
+         console.log("posts of a community", channelPosts);
+         setCommunityPosts(channelPosts);
+
+
+
+    }
+    catch(error){
+         console.log("error in fetching posts", error);
+    }
+  }
+
   useEffect(() => {
     //  getCommunity function is working fine geting response
     getCommunity(channelId);
+    getPostsOfCommunity();
+
 
 
   }, [channelId]);
+
+  const increaseVote = async (postId)=>{
+
+    if(!isLoggedIn){
+       setSignUpModal(true);
+       return;
+    }
+
+    const config = getHeadersWithUserToken();
+     // in newton doc body is not given but here it's failing if we don't pass body
+    const body = {
+      appType: "reddit"
+    }
+
+    try{
+       const response = await axios.post(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, body, config);
+       console.log("upVoted post successfully", response.data);
+       getPostsOfCommunity();  //  after Upvoting, fetch post again to show the correct count
+    }
+    catch(error){
+      console.log('fail to upvote', error.response);
+    }
+ }
+
+ const decreaseVote = async (postId)=>{
+
+  if(!isLoggedIn){
+     setSignUpModal(true);
+     return;
+  }
+
+  const config = getHeadersWithUserToken();
+  // in newton doc body is not given but here it's failing if we don't pass body
+  const body = {
+    appType: "reddit"
+  }
+
+  try{
+     const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, config);
+     console.log("downVoted post successfully", response.data);
+     getPostsOfCommunity();  //  after downVoting, fetch post again to show the correct count
+  }
+  catch(error){
+    console.log('fail to downVote', error.response);
+  }
+}
+
 
   return communityData ? communityData === 'Community not found' ? <CommunityNotFound /> :
 
@@ -54,7 +131,8 @@ export const CommunityPage = () => {
       <AllPagesLayout>
         {/* below fragment will go into all pages layout flex children[0] LHS */}
         <>
-        <CreatePostLink/>
+        <CreatePostLink channelId={channelId}/>
+        <CommunityPosts communityPosts={communityPosts} increaseVote={increaseVote} decreaseVote={decreaseVote} channelId={channelId}/>
         </>
           
          {/* below fragment will go into all pages layout flex children[1] RHS */}

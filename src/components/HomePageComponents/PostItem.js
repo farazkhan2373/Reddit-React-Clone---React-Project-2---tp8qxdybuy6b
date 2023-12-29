@@ -76,11 +76,15 @@ export const PostItem = ({post, increaseVote, decreaseVote}) => {
            {post.channel && <Text mr={1}>r/{post.channel.name}</Text>}
            <Text>posted by {post.author.name}</Text>
           </Stack>
-          {/* <Text fontSize="12pt">Post title</Text> */}
-          <Text fontSize="10pt">{post.content}</Text>
+
+          {/* TITLE AND CONTENT */}
+          {post.title && <Text fontSize="13pt"  >{post.title}</Text>}
+          {post.content && <Text fontSize="10pt">{post.content}</Text>}
+
+          {/* POSTING IMAGE */}
           <Flex justify="center" align="center" p={2}>
-          {post.channel &&  <Image height="300px" maxWidth='100%' objectFit='cover'
-            src={post.channel.image}
+          {post.images.length > 0 &&  <Image height="300px" maxWidth='100%' objectFit='cover'
+            src={post.images[0]}
             alt='Post-Image'
             />}
           </Flex>
