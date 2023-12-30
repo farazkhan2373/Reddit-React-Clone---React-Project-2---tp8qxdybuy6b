@@ -123,6 +123,21 @@ export const CommunityPage = () => {
   }
 }
 
+async function deletePost(postId){
+         
+  const config = getHeadersWithUserToken();
+
+  try{
+     const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/post/${postId}`, config);
+     console.log("post deleted successfully",  response);
+     getPostsOfCommunity();   //  after deleting, fetch posts again to remove the deleted post
+  }
+  catch(error){
+      console.log('error in deleting post', error);
+  }
+
+}
+
 
   return communityData ? communityData === 'Community not found' ? <CommunityNotFound /> :
 
@@ -132,7 +147,13 @@ export const CommunityPage = () => {
         {/* below fragment will go into all pages layout flex children[0] LHS */}
         <>
         <CreatePostLink channelId={channelId}/>
-        <CommunityPosts communityPosts={communityPosts} increaseVote={increaseVote} decreaseVote={decreaseVote} channelId={channelId}/>
+        <CommunityPosts 
+          communityPosts={communityPosts} 
+          increaseVote={increaseVote} 
+          decreaseVote={decreaseVote} 
+          channelId={channelId} 
+          deletePost={deletePost}
+        />
         </>
           
          {/* below fragment will go into all pages layout flex children[1] RHS */}

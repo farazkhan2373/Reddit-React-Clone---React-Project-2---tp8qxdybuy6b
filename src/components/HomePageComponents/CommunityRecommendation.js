@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../utils/projectID'
 import axios from 'axios'
+import { CommunitySuggestionLoader } from '../LoadingComponents/CommunitySuggestionLoader'
 
 export const CommunityRecommendation = () => {
 
@@ -25,7 +26,7 @@ export const CommunityRecommendation = () => {
             }
             console.log("top 5 community", top5Community);
 
-            setCommunitySuggestion(top5Community);
+           setCommunitySuggestion(top5Community);
 
         }
         catch (error) {
@@ -101,7 +102,7 @@ export const CommunityRecommendation = () => {
                             </Link>
                         ))
                         :
-                        <div>Loading...</div>
+                        <CommunitySuggestionLoader/>
                     }
 
 

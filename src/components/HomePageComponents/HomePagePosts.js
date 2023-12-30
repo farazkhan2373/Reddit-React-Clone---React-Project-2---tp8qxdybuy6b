@@ -78,12 +78,27 @@ useEffect(()=>{
       }
    }
 
+   async function deletePost(postId){
+         
+         const config = getHeadersWithUserToken();
+
+         try{
+            const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/post/${postId}`, config);
+            console.log("post deleted successfully",  response);
+            fetchPosts();  //  after deleting, fetch posts again to remove the deleted post
+         }
+         catch(error){
+             console.log('error in deleting post', error);
+         }
+
+   }
+
     
   return (
     <>
     <Stack>
         {postData ? postData.length > 0 && postData.map((post, index)=>(
-            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote}/>
+            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost}/>
              
         )) : <PostLoader/>}
     </Stack>
