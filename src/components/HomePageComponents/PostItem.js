@@ -4,13 +4,14 @@ import { IoArrowUpCircleOutline, IoArrowDownCircleOutline, IoArrowUpCircleSharp,
 import { BsChat } from 'react-icons/bs';
 import { FaReddit } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
+import { CiEdit } from 'react-icons/ci';
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export const PostItem = ({ post, increaseVote, decreaseVote, deletePost }) => {
+export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPost }) => {
 
   const token = sessionStorage.getItem('userToken');
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
@@ -137,6 +138,20 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost }) => {
             <Icon as={IoBookmarkOutline} mr={2} />
             <Text fontSize="9pt">Save</Text>
           </Flex>
+
+          {isLoggedIn && post.author._id === loggedInUserDetails._id && (
+            <Flex
+            align="center"
+            padding="8px 10px"
+            borderRadius={4}
+            _hover={{ bg: "gray.200" }}
+            cursor="pointer"
+            onClick={()=>editPost(post)}
+          >
+            <Icon as={CiEdit} mr={2} />
+            <Text fontSize="9pt">Edit</Text>
+          </Flex>
+          )}
 
           {/* Delete icon User created channel can delete any of his channel post if */}
           {isLoggedIn && (

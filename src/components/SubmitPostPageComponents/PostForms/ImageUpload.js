@@ -1,7 +1,7 @@
 import { Button, Flex, Image, Stack } from '@chakra-ui/react'
 import React, { useRef } from 'react'
 
-export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSelectedFile }) => {
+export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSelectedFile, setUploadedImage }) => {
 
     const selectedFileRef = useRef(null);
     return (
@@ -22,7 +22,11 @@ export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSe
               <Button
                variant="outline"
                height="28px"
-               onClick={()=> setSelectedFile("")}
+               onClick={()=> {
+                setSelectedFile(null);
+                setUploadedImage(null);
+
+               }}
               >
                 Remove
               </Button>

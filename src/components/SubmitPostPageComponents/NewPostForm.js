@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
 import { BiPoll } from "react-icons/bi"
 import { BsLink45Deg, BsMic } from "react-icons/bs"
@@ -34,7 +34,7 @@ const formTabs = [
     },
 ]
 
-export const NewPostForm = ({ channelId }) => {
+export const NewPostForm = ({ channelId, postDetails }) => {
 
     const [selectedTab, setSelectedTab] = useState(formTabs[0].title); // post tab will be selected default
 
@@ -50,13 +50,57 @@ export const NewPostForm = ({ channelId }) => {
 
     const navigateTo = useNavigate();
 
-    async function createPost(postDetails) {
+
+    useEffect(()=>{
+      console.log(postDetails);
+
+      if(postDetails){
+
+         if(postDetails.title){
+           setTextInputs((prev)=>{
+             return {...prev, title: postDetails.title}
+           })
+         }
+
+         if(postDetails.content){
+            setTextInputs((prev)=>{
+                return {...prev, content: postDetails.content}
+              })
+         }
+ 
+
+        //  WE CAN'T EDIT IMAGE WE CAN ONLY EDIT TITLE AND CONTENT
+        //  if(postDetails.images.length > 0){
+        //     setSelectedFile(postDetails.images[0]);
+        //     setUploadedImage(postDetails.images[0]);
+        //  }
+
+      }
+
+    }, []);
+
+    async function createPost(postData) {
         const config = getHeadersWithUserToken();
         try {
-            const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/post/', postDetails, config);
+            let response
+
+            // postDetails -> contains edited post details if it's true than PATCH request else new POST request
+            if(postDetails){        
+             console.log("in patch request");
+             response = await axios.patch(`https://academics.newtonschool.co/api/v1/reddit/post/${postDetails._id}`, postData, config);
+            }else{
+             console.log("working fine in post request")
+             response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/post/', postData, config);
+            }
+
             console.log("post success", response.data);
             setIsLoading(false);
+            if(channelId){
             navigateTo(`/community/${channelId}`);
+            }
+            else{
+                navigateTo('/');
+            }
 
         }
         catch (err) {
@@ -67,21 +111,23 @@ export const NewPostForm = ({ channelId }) => {
 
     function handleCreatePost() {
         setIsLoading(true);
-        const postDetails = new FormData();
+        const postData = new FormData();
 
-        postDetails.append('title', textInputs.title);
-        postDetails.append('content', textInputs.content);
-        postDetails.append('channel', channelId);
+        postData.append('title', textInputs.title);
+        postData.append('content', textInputs.content);
+        if(!postDetails){
+        postData.append('channel', channelId);
+        }
 
-        // Images is not working 
+        
         if (uploadedImage) {
             
-            postDetails.append('images', uploadedImage, uploadedImage.name);
+            postData.append('images', uploadedImage, uploadedImage.name);
             console.log("uploading image", uploadedImage);
           }
 
 
-        createPost(postDetails);
+        createPost(postData);
 
     }
 
@@ -135,6 +181,7 @@ export const NewPostForm = ({ channelId }) => {
                     onSelectImage={onSelectImage}
                     setSelectedTab={setSelectedTab}
                     setSelectedFile={setSelectedFile}
+                    setUploadedImage={setUploadedImage}
                 />}
             </Flex>
 

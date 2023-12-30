@@ -4,7 +4,7 @@ import { PostItem } from '../HomePageComponents/PostItem'
 import { PostLoader } from '../LoadingComponents/PostLoader'
 import { useNavigate } from 'react-router-dom'
 
-export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, channelId, deletePost}) => {
+export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, channelId, deletePost, editPost}) => {
 
     const navigateTo = useNavigate();
 
@@ -13,7 +13,7 @@ export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, chan
     <>
     <Stack>
         {communityPosts ? communityPosts.length > 0 ? communityPosts.map((post, index)=>(
-            <PostItem key={index} post= {post}  increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost}/>
+            <PostItem key={index} post= {post}  increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost} editPost={editPost}/>
              
         )) : (
             // IF THERE ARE NO POSTS SHOW ADD A POST BUTTON

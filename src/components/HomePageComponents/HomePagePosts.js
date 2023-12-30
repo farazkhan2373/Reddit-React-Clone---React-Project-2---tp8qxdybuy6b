@@ -7,6 +7,7 @@ import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import { PostLoader } from '../LoadingComponents/PostLoader';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePagePosts = () => {
 
@@ -14,6 +15,7 @@ export const HomePagePosts = () => {
 
   const {isLoggedIn, setIsLoggedIn} = userLogInStore();
   const {setSignUpModal} = useSignUpModalStore();
+  const navigateTo = useNavigate();
 
   const fetchPosts = async ()=>{
     const config = getHeadersWithProjectID();
@@ -93,12 +95,18 @@ useEffect(()=>{
 
    }
 
+   function editPost(postDetails){
+
+      navigateTo('/submitPost', {state: {postDetails}});
+          
+    }
+
     
   return (
     <>
     <Stack>
         {postData ? postData.length > 0 && postData.map((post, index)=>(
-            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost}/>
+            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost} editPost={editPost}/>
              
         )) : <PostLoader/>}
     </Stack>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getHeadersWithUserToken } from '../../components/utils/headersWithUserToken';
 import axios from 'axios';
 import { CommunityNotFound } from '../../components/CommunityPageComponent/CommunityNotFound';
@@ -24,6 +24,8 @@ export const CommunityPage = () => {
   const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
   const {showSignUpModal, setSignUpModal} = useSignUpModalStore();
   const {isLoggedIn} = userLogInStore();
+
+  const navigateTo = useNavigate();
 
 
   const getCommunity = async (channelId) => {
@@ -138,6 +140,12 @@ async function deletePost(postId){
 
 }
 
+function editPost(postDetails){
+
+  navigateTo('/submitPost', {state: {postDetails, channelId}})
+      
+}
+
 
   return communityData ? communityData === 'Community not found' ? <CommunityNotFound /> :
 
@@ -153,6 +161,7 @@ async function deletePost(postId){
           decreaseVote={decreaseVote} 
           channelId={channelId} 
           deletePost={deletePost}
+          editPost={editPost}
         />
         </>
           
