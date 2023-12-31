@@ -18,7 +18,7 @@ export const SubmitPostPage = () => {
       <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
         <Text>Create a Post</Text>
       </Box>
-      <NewPostForm channelId={location.state.channelId && location.state.channelId} postDetails={location.state.postDetails && location.state.postDetails}/>
+      <NewPostForm channelId={location.state.channelId && location.state.channelId}/>
      </>
 
      {/* RHS */}

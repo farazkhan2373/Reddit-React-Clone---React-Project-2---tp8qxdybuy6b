@@ -1,11 +1,12 @@
-import { Button, Flex, Input, Stack, Text, Textarea } from '@chakra-ui/react'
+import { Button, Flex, Input, Stack, Textarea, Text } from '@chakra-ui/react'
 import React from 'react'
 
-export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isLoading, errorMsg}) => {
+export const EditTextInput = ({errorMsg, textInputs, handleInputChange, handleEditPost, isLoading}) => {
   return (
-   <Stack spacing={3} width="100%">
+    <Stack spacing={3} width="100%">
 
     {/* TITLE INPUT */}
+     <Text color="gray.500" ml={2}>Edit Title</Text>
        <Input
         name='title'
         value={textInputs.title}
@@ -15,15 +16,16 @@ export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isL
         placeholder='Title'
         _placeholder={{color: "gray.500"}}
         _focus={{
-            outline: "none",
-            bg: "white",
-            border: "1px solid",
-            borderColor: "black"
+          outline: "none",
+          bg: "white",
+          border: "1px solid",
+          borderColor: "black"
         }}
-       />
-       {errorMsg && <Text fontSize="9pt" color="red" ml={2}>{errorMsg}</Text>}
+        />
 
+        {errorMsg && <Text fontSize="9pt" color="red" ml={2}>{errorMsg}</Text>}
        {/* CONTENT INPUT */}
+       <Text color="gray.500" ml={2}>Edit Content</Text>
        <Textarea
         name='content'
         value={textInputs.content}
@@ -48,8 +50,7 @@ export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isL
           padding="0px 30px"
           isDisabled={!textInputs.title}
           isLoading={isLoading}
-          onClick={handleCreatePost}
-
+          onClick={handleEditPost}
         >Post</Button>
        </Flex>
    </Stack>

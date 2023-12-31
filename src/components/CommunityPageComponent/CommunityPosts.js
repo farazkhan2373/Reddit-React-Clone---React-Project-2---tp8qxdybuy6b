@@ -17,7 +17,7 @@ export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, chan
              
         )) : (
             // IF THERE ARE NO POSTS SHOW ADD A POST BUTTON
-            <Stack padding={10} align="center" justify="center">
+            <Stack padding={10} align="center" justify="center" border="1px dashed" borderColor="black" borderRadius="4px" height="300px">
                 <Text fontSize="15pt" fontWeight={700}>There are no posts in this subreddit</Text>
                 <Button height="34px" onClick={()=>navigateTo(`/submitpost`, {state: {channelId}})}>Add a post</Button>
             </Stack>

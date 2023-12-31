@@ -19,7 +19,10 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
   const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails'));
   const navigateTo = useNavigate();
 
-
+  function removeSpace(str) {
+    let removedSpacesText = str.split(" ").join("");
+    return removedSpacesText
+  }
 
 
 
@@ -71,7 +74,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             align="center"
             fontSize="9pt"
           >
-            {post.author.profileImage ? <Image src={post.author.profileImage}
+            {post.channel ? post.channel.image  ? <Image src={post.channel.image}
               height={6}
               width={6}
               borderRadius='50%'
@@ -79,24 +82,24 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               mr={1}
             />
               :
-              <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" />}
+              <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" /> : <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" />}
             {post.channel && 
             <Text 
               mr={1} 
               cursor="pointer"
               _hover={{color: "blue.500"}}
               onClick={()=> navigateTo(`/community/${post.channel._id}`)}
-              >r/{post.channel.name}</Text>}
+              >r/{removeSpace(post.channel.name)}</Text>}
             <Text>posted by {post.author.name}</Text>
           </Stack>
 
           {/* TITLE AND CONTENT */}
-          {post.title && <Text fontSize="13pt"  >{post.title}</Text>}
+          {post.title && <Text fontSize="14pt" >{post.title} </Text>}
           {post.content && <Text fontSize="10pt">{post.content}</Text>}
 
           {/* POSTING IMAGE */}
           <Flex justify="center" align="center" p={2}>
-            {post.images.length > 0 && <Image height="300px" maxWidth='100%' objectFit="contain"
+            {post.images.length > 0 && <Image height="300px" maxWidth='100%' objectFit="cover"
               src={post.images[0]}
               alt='Post-Image'
             />}

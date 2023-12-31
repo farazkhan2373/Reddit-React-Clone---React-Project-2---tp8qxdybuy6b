@@ -7,12 +7,14 @@ import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore'
 import { useNavigate } from 'react-router-dom'
 
 export const CreatePostLink = ({channelId}) => {
-   
+
+ 
     const {setSignUpModal} = useSignUpModalStore();
     const {isLoggedIn} = userLogInStore();
     const navigateTo = useNavigate();
 
     function redirectToSubmitPost(){
+      
          if(!isLoggedIn){
            setSignUpModal(true);
            return;

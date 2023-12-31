@@ -34,7 +34,7 @@ const formTabs = [
     },
 ]
 
-export const NewPostForm = ({ channelId, postDetails }) => {
+export const NewPostForm = ({ channelId }) => {
 
     const [selectedTab, setSelectedTab] = useState(formTabs[0].title); // post tab will be selected default
 
@@ -44,57 +44,26 @@ export const NewPostForm = ({ channelId, postDetails }) => {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-
+    const [errorMsg, setErrorMsg] = useState('');
+     
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null);
 
+    const [uploadBtnLoading, setUploadBtnLoading] = useState(false);
+
+    
     const navigateTo = useNavigate();
 
 
-    useEffect(()=>{
-      console.log(postDetails);
-
-      if(postDetails){
-
-         if(postDetails.title){
-           setTextInputs((prev)=>{
-             return {...prev, title: postDetails.title}
-           })
-         }
-
-         if(postDetails.content){
-            setTextInputs((prev)=>{
-                return {...prev, content: postDetails.content}
-              })
-         }
- 
-
-        //  WE CAN'T EDIT IMAGE WE CAN ONLY EDIT TITLE AND CONTENT
-        //  if(postDetails.images.length > 0){
-        //     setSelectedFile(postDetails.images[0]);
-        //     setUploadedImage(postDetails.images[0]);
-        //  }
-
-      }
-
-    }, []);
 
     async function createPost(postData) {
+        
         const config = getHeadersWithUserToken();
+
         try {
-            let response
-
-            // postDetails -> contains edited post details if it's true than PATCH request else new POST request
-            if(postDetails){        
-             console.log("in patch request");
-             response = await axios.patch(`https://academics.newtonschool.co/api/v1/reddit/post/${postDetails._id}`, postData, config);
-            }else{
-             console.log("working fine in post request")
-             response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/post/', postData, config);
-            }
-
-            console.log("post success", response.data);
+            const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/post/', postData, config);
             setIsLoading(false);
+
             if(channelId){
             navigateTo(`/community/${channelId}`);
             }
@@ -107,21 +76,26 @@ export const NewPostForm = ({ channelId, postDetails }) => {
             console.log("error in creating post", err)
             setIsLoading(false);
         }
+
     }
 
     function handleCreatePost() {
+
+        if(textInputs.title.length > 100){
+            setErrorMsg("Title characters can't be greater than 100");
+            return;
+        }
+        
         setIsLoading(true);
         const postData = new FormData();
 
         postData.append('title', textInputs.title);
         postData.append('content', textInputs.content);
-        if(!postDetails){
+        if(channelId){
         postData.append('channel', channelId);
         }
 
-        
-        if (uploadedImage) {
-            
+        if (uploadedImage) {  
             postData.append('images', uploadedImage, uploadedImage.name);
             console.log("uploading image", uploadedImage);
           }
@@ -132,6 +106,8 @@ export const NewPostForm = ({ channelId, postDetails }) => {
     }
 
     function onSelectImage(e) {
+
+        setUploadBtnLoading(true);
         const reader = new FileReader();
 
         if (e.target.files?.[0]) {
@@ -150,6 +126,10 @@ export const NewPostForm = ({ channelId, postDetails }) => {
     };
 
     function handleInputChange(e) {
+
+        if(errorMsg){
+            setErrorMsg('');
+        }
         const { name, value } = e.target;
 
         setTextInputs((prev) => {
@@ -174,6 +154,7 @@ export const NewPostForm = ({ channelId, postDetails }) => {
                     handleInputChange={handleInputChange}
                     handleCreatePost={handleCreatePost}
                     isLoading={isLoading}
+                    errorMsg={errorMsg}
                 />}
 
                 {selectedTab === "Images & Video" && <ImageUpload
@@ -182,6 +163,8 @@ export const NewPostForm = ({ channelId, postDetails }) => {
                     setSelectedTab={setSelectedTab}
                     setSelectedFile={setSelectedFile}
                     setUploadedImage={setUploadedImage}
+                    uploadBtnLoading={uploadBtnLoading}
+                    setUploadBtnLoading={setUploadBtnLoading}
                 />}
             </Flex>
 

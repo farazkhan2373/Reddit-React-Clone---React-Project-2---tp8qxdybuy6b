@@ -1,7 +1,9 @@
 import { Button, Flex, Image, Stack } from '@chakra-ui/react'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
-export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSelectedFile, setUploadedImage }) => {
+export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSelectedFile, setUploadedImage, uploadBtnLoading, setUploadBtnLoading }) => {
+
+
 
     const selectedFileRef = useRef(null);
     return (
@@ -11,8 +13,7 @@ export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSe
             <>
 
              <Image src={selectedFile} 
-                maxWidth="400px" 
-                maxHeight="400px"
+                height="300px" maxWidth='100%'
                 objectFit="cover"    
             />
             <Stack  direction="row" mt={4}>
@@ -25,6 +26,7 @@ export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSe
                onClick={()=> {
                 setSelectedFile(null);
                 setUploadedImage(null);
+                setUploadBtnLoading(false);
 
                }}
               >
@@ -47,7 +49,12 @@ export const ImageUpload = ({ selectedFile, onSelectImage, setSelectedTab, setSe
                 <Button
                     variant="outline"
                     height="28px"
-                    onClick={() => selectedFileRef.current?.click()}
+                    onClick={() => {
+                        selectedFileRef.current?.click();
+                        
+
+                    }}
+                   isLoading={uploadBtnLoading}
                 >
                     Upload
                 </Button>

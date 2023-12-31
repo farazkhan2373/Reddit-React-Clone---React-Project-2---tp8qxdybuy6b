@@ -20,7 +20,7 @@ export const HomePagePosts = () => {
   const fetchPosts = async ()=>{
     const config = getHeadersWithProjectID();
     try{
-        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post', config);
+        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post?limit=1000', config);
         console.log("posts", response.data.data);
         setPostData(response.data.data);
     }
@@ -97,7 +97,7 @@ useEffect(()=>{
 
    function editPost(postDetails){
 
-      navigateTo('/submitPost', {state: {postDetails}});
+      navigateTo('/editPost', {state: {postDetails}});
           
     }
 

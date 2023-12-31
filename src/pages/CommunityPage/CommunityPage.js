@@ -141,8 +141,7 @@ async function deletePost(postId){
 }
 
 function editPost(postDetails){
-
-  navigateTo('/submitPost', {state: {postDetails, channelId}})
+  navigateTo('/editpost', {state: {postDetails, channelId}});
       
 }
 
