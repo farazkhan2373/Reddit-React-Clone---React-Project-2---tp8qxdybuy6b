@@ -20,7 +20,7 @@ export const HomePagePosts = () => {
   const fetchPosts = async ()=>{
     const config = getHeadersWithProjectID();
     try{
-        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post?limit=1000', config);
+        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post/', config);
         console.log("posts", response.data.data);
         setPostData(response.data.data);
     }
@@ -101,12 +101,16 @@ useEffect(()=>{
           
     }
 
+   function handleComment(postDetails){
+      navigateTo(`/comment/${postDetails._id}`, {state: {postDetails}});
+   }
+
     
   return (
     <>
     <Stack>
         {postData ? postData.length > 0 && postData.map((post, index)=>(
-            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost} editPost={editPost}/>
+            <PostItem post= {post} key={index} increaseVote={increaseVote} decreaseVote={decreaseVote} deletePost={deletePost} editPost={editPost} handleComment={handleComment} />
              
         )) : <PostLoader/>}
     </Stack>

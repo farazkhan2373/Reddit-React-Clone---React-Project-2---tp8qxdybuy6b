@@ -11,7 +11,7 @@ import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPost }) => {
+export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPost, handleComment }) => {
 
   const token = sessionStorage.getItem('userToken');
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
@@ -115,6 +115,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             borderRadius={4}
             _hover={{ bg: "gray.200" }}
             cursor="pointer"
+            onClick={()=> handleComment(post)}
           >
             <Icon as={BsChat} mr={2} />
             <Text fontSize="9pt">{post.commentCount}</Text>

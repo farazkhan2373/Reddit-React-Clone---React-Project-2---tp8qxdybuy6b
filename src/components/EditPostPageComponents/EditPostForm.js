@@ -7,7 +7,7 @@ import { getHeadersWithUserToken } from '../utils/headersWithUserToken'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-export const EditPostForm = ({channelId, postDetails}) => {
+export const EditPostForm = ({channelId, postDetails, postId}) => {
 
     console.log("channelId", channelId);
     console.log("postDetails", postDetails);
@@ -45,8 +45,11 @@ export const EditPostForm = ({channelId, postDetails}) => {
             if(channelId){
               navigateTo(`/community/${channelId}`); // redirect to community page
             }
+            else if(postId){
+                navigateTo(`/comment/${postId}`); // redirect to home page
+            }
             else{
-                navigateTo('/'); // redirect to home page
+                navigateTo('/');
             }
         }
         catch(error){

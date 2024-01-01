@@ -25,9 +25,9 @@ export const CommunityPageHeader = ({ communityData }) => {
   }
 
   return (
-    <Flex direction="column" width="100%" height="230px">
+    <Flex direction="column" width="100%" height="300px">
       {/* <Box height="50%" bg="brand.100" /> */}
-      <Image src='/images/bannerBackgroundImage.jpg' height="60%" objectFit="cover" borderTop="2px solid" borderTopColor="gray.200"/>
+      <Image src='/images/bannerBackgroundImage.jpg' height="70%" objectFit="cover" borderTop="2px solid" borderTopColor="gray.200"/>
       <Flex justify="center" bg="white" flexFlow={1} height="100%">
         <Flex width="95%" maxWidth="860px" >
           {

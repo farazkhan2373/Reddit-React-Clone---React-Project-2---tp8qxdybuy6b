@@ -16,7 +16,7 @@ export const EditPostPage = () => {
                 <Box p="14px 0px" borderBottom="1px solid" borderColor="white">
                     <Text>Edit a Post</Text>
                 </Box>
-                <EditPostForm  postDetails={location.state.postDetails} channelId={location.state.channelId} />
+                <EditPostForm  postDetails={location.state.postDetails} channelId={location.state.channelId} postId={location.state.postId} />
             </>
 
             {/* RHS */}

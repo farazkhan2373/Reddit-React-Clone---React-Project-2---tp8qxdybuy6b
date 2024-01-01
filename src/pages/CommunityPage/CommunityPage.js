@@ -145,6 +145,12 @@ function editPost(postDetails){
       
 }
 
+function handleComment(postDetails){
+  navigateTo(`/comment/${postDetails._id}`, {state: {postDetails}});
+}
+
+
+
 
   return communityData ? communityData === 'Community not found' ? <CommunityNotFound /> :
 
@@ -161,6 +167,7 @@ function editPost(postDetails){
           channelId={channelId} 
           deletePost={deletePost}
           editPost={editPost}
+          handleComment={handleComment}
         />
         </>
           
