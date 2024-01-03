@@ -23,6 +23,8 @@ export const CommentPage = () => {
   const [commentText, setCommentText] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
 
+  const [allComments, setAllComments] = useState(null);
+
   const { isLoggedIn } = userLogInStore();
   const { setSignUpModal } = useSignUpModalStore();
 
@@ -48,8 +50,26 @@ export const CommentPage = () => {
     }
   }
 
+  
+
+  async function getCommentsOfPost(){
+    const config = getHeadersWithProjectID();
+    try{
+      const response = await axios.get(`https://academics.newtonschool.co/api/v1/reddit/post/${postId}/comments/`, config);
+      console.log('comments fetched successfully', response.data.data);
+      const comments = response.data.data;
+      comments.reverse()
+      setAllComments(response.data.data);
+
+    }
+    catch(error){
+       console.log('error in fetching comment', error);
+    }
+  }
+
   useEffect(() => {
     fetchAllPosts();
+    getCommentsOfPost();
 
   }, [])
 
@@ -139,6 +159,7 @@ export const CommentPage = () => {
       setCommentText('');
       setBtnLoading(false);
       fetchAllPosts();
+      getCommentsOfPost();
     }
     catch(error){
       console.log("error in creating comment", error)
@@ -155,6 +176,19 @@ function handleCommentClick(){
   }
 
   createComment(comment);
+}
+
+// DELETE COMMENT
+async function deleteComment(commentId){
+  const config = getHeadersWithUserToken();
+  try{
+      const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/comment/${commentId}`, config);
+      console.log('comment deleted successfully', response.data);
+      getCommentsOfPost();
+  }
+  catch(error){
+    console.log("error in deleting comment", error);
+  }
 }
 
 
@@ -177,6 +211,8 @@ function handleCommentClick(){
             setCommentText={setCommentText} 
             btnLoading={btnLoading} 
             handleCommentClick={handleCommentClick}
+            allComments={allComments}
+            deleteComment={deleteComment}
             
             />
 
@@ -192,3 +228,4 @@ function handleCommentClick(){
     </AllPagesLayout>
   )
 }
+

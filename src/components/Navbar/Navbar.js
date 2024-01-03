@@ -51,6 +51,7 @@ export const Navbar = () => {
        
        {/* HOME ICON AND DIRECTORY */}
        {isLoggedIn && <Directory />}
+       
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
 
