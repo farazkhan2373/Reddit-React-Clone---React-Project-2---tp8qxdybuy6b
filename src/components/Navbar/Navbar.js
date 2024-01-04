@@ -1,6 +1,5 @@
 import { Flex, Image } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { SearchInput } from './SearchInput'
 import { RightContent } from './RightContent/RightContent'
 import { Directory } from './Directory/Directory'
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
@@ -8,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../utils/projectID'
 import axios from 'axios'
 import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
+import { SearchInput } from './SearchInput'
 
 export const Navbar = () => {
 
@@ -54,7 +54,7 @@ export const Navbar = () => {
        
        {/* NAVBAR -> SEARCHINPUT */}
        <SearchInput/>
-
+     
        {/* LOGIN LOGOUT BUTTON OR USER PROFILE */}
        <RightContent/>
 

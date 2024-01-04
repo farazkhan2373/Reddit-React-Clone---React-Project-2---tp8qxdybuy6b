@@ -83,6 +83,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             />
               :
               <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" /> : <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" />}
+              
             {post.channel && 
             <Text 
               mr={1} 
@@ -90,6 +91,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               _hover={{color: "blue.500"}}
               onClick={()=> navigateTo(`/community/${post.channel._id}`)}
               >r/{removeSpace(post.channel.name)}</Text>}
+              
             <Text>posted by {post.author.name}</Text>
           </Stack>
 

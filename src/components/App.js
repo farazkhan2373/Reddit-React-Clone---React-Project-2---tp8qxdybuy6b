@@ -6,6 +6,7 @@ import { HomePage } from "../pages/HomePage/HomePage";
 import { SubmitPostPage } from "../pages/SubmitPostPage/SubmitPostPage";
 import { EditPostPage } from "../pages/EditPostPage/EditPostPage";
 import { CommentPage } from "../pages/CommentPage/CommentPage";
+import { SearchPage } from "../pages/SearchPage/SearchPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/submitpost" element={<SubmitPostPage />} />
         <Route path="/editpost" element={<EditPostPage />} />
         <Route path="/comment/:postId" element={<CommentPage />} />
+        <Route path="/search" element={<SearchPage />} />
        </Routes>
     </div>
     
