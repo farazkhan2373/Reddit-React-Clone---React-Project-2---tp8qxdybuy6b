@@ -27,6 +27,11 @@ export const CommunityPage = () => {
 
   const navigateTo = useNavigate();
 
+  function removeSpace(str) {
+    let removedSpacesText = str.split(" ").join("");
+    return removedSpacesText
+  }
+
 
   const getCommunity = async (channelId) => {
     const config = getHeadersWithProjectID();
@@ -36,7 +41,9 @@ export const CommunityPage = () => {
       console.log("single community data", response.data.data);
       setCommunityData(response.data.data);
 
-      sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);
+      const channelName = removeSpace(response.data.data.name);
+
+      sessionStorage.setItem('menuButtonText', `r/${channelName}`);
       const updatedText = sessionStorage.getItem('menuButtonText');
       setMenuButtonText(updatedText);
     }

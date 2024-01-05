@@ -9,30 +9,14 @@ import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import { PostLoader } from '../LoadingComponents/PostLoader';
 import { useNavigate } from 'react-router-dom';
 
-export const HomePagePosts = () => {
+export const HomePagePosts = ({postData, setPostData, fetchPosts}) => {
 
-   const [postData, setPostData] = useState(null);
+   
 
   const {isLoggedIn, setIsLoggedIn} = userLogInStore();
   const {setSignUpModal} = useSignUpModalStore();
   const navigateTo = useNavigate();
 
-  const fetchPosts = async ()=>{
-    const config = getHeadersWithProjectID();
-    try{
-        const response = await axios.get('https://academics.newtonschool.co/api/v1/reddit/post/', config);
-        console.log("posts", response.data.data);
-        setPostData(response.data.data);
-    }
-    catch(error){
-        console.log('error');
-    }
-}
-
-useEffect(()=>{
-    fetchPosts();
-
-}, [])
 
    const increaseVote = async (postId)=>{
 
@@ -50,7 +34,7 @@ useEffect(()=>{
       try{
          const response = await axios.post(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, body, config);
          console.log("upVoted post successfully", response.data);
-         fetchPosts();  //  after Upvoting, fetch post again to show the correct count
+         fetchPosts(true);  //  after Upvoting, fetch post again to show the correct count
       }
       catch(error){
         console.log('fail to upvote', error.response);
@@ -73,7 +57,7 @@ useEffect(()=>{
       try{
          const response = await axios.delete(`https://academics.newtonschool.co/api/v1/reddit/like/${postId}`, config);
          console.log("downVoted post successfully", response.data);
-         fetchPosts();  //  after downVoting, fetch post again to show the correct count
+         fetchPosts(true);  //  after downVoting, fetch post again to show the correct count
       }
       catch(error){
         console.log('fail to downVote', error.response);

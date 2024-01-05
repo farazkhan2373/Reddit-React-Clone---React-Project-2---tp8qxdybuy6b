@@ -7,6 +7,7 @@ import { CommunityTab } from '../../components/SearchPageComponents/CommunityTab
 import { useLocation } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../../components/utils/projectID'
 import axios, { all } from 'axios'
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 
 const searchTabs = [
     {
@@ -24,6 +25,8 @@ export const SearchPage = () => {
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('q');
     console.log("search query", query); 
+
+    const {setMenuButtonText} = useMenuButtonTextStore();
 
 
     const [selectedTab, setSelectedTab] = useState(searchTabs[0].title);
@@ -108,6 +111,8 @@ export const SearchPage = () => {
     
     
     useEffect(()=>{
+        setMenuButtonText('Search Result');
+        sessionStorage.setItem('menuButtonText', 'Search Result');
         searchPosts();
         searchCommunity();
     }, [query])

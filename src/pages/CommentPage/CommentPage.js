@@ -9,6 +9,7 @@ import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithProjectID } from '../../components/utils/projectID';
 import { Comment, Comments } from '../../components/CommentPageComponents/Comments';
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore';
 
 export const CommentPage = () => {
 
@@ -29,6 +30,13 @@ export const CommentPage = () => {
   const { setSignUpModal } = useSignUpModalStore();
 
   const navigateTo = useNavigate();
+
+  const {setMenuButtonText} = useMenuButtonTextStore();
+  
+  useEffect(()=>{
+    setMenuButtonText('Post');
+    sessionStorage.setItem('menuButtonText', 'Post');
+  }, [])
 
 
   // FETCH ALL POSTS

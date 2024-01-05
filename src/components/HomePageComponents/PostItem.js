@@ -89,14 +89,15 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               mr={1} 
               cursor="pointer"
               _hover={{color: "blue.500"}}
+              fontWeight={700}
               onClick={()=> navigateTo(`/community/${post.channel._id}`)}
               >r/{removeSpace(post.channel.name)}</Text>}
               
-            <Text>posted by {post.author.name}</Text>
+            <Text color="gray.500">Posted by u/{post.author.name}</Text>
           </Stack>
 
           {/* TITLE AND CONTENT */}
-          {post.title && <Text fontSize="14pt" >{post.title} </Text>}
+          {post.title && <Text fontSize="14pt" fontWeight={600} >{post.title} </Text>}
           {post.content && <Text fontSize="10pt">{post.content}</Text>}
 
           {/* POSTING IMAGE */}

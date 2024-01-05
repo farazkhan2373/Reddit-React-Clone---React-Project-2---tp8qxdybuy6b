@@ -3,11 +3,19 @@ import { AllPagesLayout } from '../../components/Layout/AllPagesLayout'
 import { Box, Text, chakra } from '@chakra-ui/react'
 import { EditPostForm } from '../../components/EditPostPageComponents/EditPostForm'
 import { useLocation } from 'react-router-dom'
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 
 export const EditPostPage = () => {
     const location = useLocation();
     // location.state.channelId
     // location.state.postDetails
+
+    const {setMenuButtonText} = useMenuButtonTextStore();
+  
+  useEffect(()=>{
+    setMenuButtonText('Edit Post');
+    sessionStorage.setItem('menuButtonText', 'Edit Post');
+  }, [])
     
     return (
         <AllPagesLayout>
