@@ -8,6 +8,14 @@ import "@fontsource/open-sans/700.css"
 // 1. Import `extendTheme`
 import { extendTheme } from "@chakra-ui/react"
 import { Button } from "./button"
+import useThemeStore from "../store/ThemeStore/useThemeStore"
+
+function getTheme(){
+  const {isDarkMode} = useThemeStore();
+  return isDarkMode;
+}
+
+
 
 // 2. Call `extendTheme` and pass your custom values
 export const theme = extendTheme({
@@ -25,10 +33,13 @@ export const theme = extendTheme({
 //   This syles will apply globaly
   styles: {
    global: ()=> ({
+    
     body: {
-        bg: "gray.200",
+        bg: getTheme() ? "black" : "gray.200",
+          // bg: "#030303" // reddit dark mode
+         // bg: "black" // final
     }
-   })
+   }),
   },
 //   will style components like button through this
   components:{

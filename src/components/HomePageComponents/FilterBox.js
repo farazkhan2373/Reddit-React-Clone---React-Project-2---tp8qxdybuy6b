@@ -5,6 +5,7 @@ import {TiStarburstOutline} from "react-icons/ti";
 import {LiaFireAltSolid} from "react-icons/lia";
 import {HiOutlineArrowUpOnSquare} from "react-icons/hi2";
 import {MdRocket} from "react-icons/md";
+import useThemeStore from '../../store/ThemeStore/useThemeStore';
 
 const filterTabs = [
     {
@@ -26,13 +27,16 @@ const filterTabs = [
 ]
 
 export const FilterBox = ({ selectedFilterTab, setSelectedFilterTab }) => {
+
+    const {isDarkMode} = useThemeStore();
+
     return (
-        <Flex bg="white"
+        <Flex bg={isDarkMode ? "#1a1a1b" : "white"}
             mb={4}
             padding={3}
             borderRadius="4px"
             border="1px solid"
-            borderColor="gray.300"
+            borderColor={isDarkMode ? "#343536" : "gray.300"}
         >
             <Flex width="100%" gap={4}>
                 {filterTabs.map((item, index)=>(

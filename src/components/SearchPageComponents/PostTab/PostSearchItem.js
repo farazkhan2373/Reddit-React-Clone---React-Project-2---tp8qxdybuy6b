@@ -2,10 +2,12 @@ import React from 'react'
 import { Flex, Icon, Image, Stack, Text } from '@chakra-ui/react'
 import { FaReddit } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import useThemeStore from '../../../store/ThemeStore/useThemeStore'
 
 export const PostSearchItem = ({ post }) => {
 
     const navigateTo = useNavigate();
+    const {isDarkMode} = useThemeStore();
 
     function removeSpace(str) {
         let removedSpacesText = str.split(" ").join("");
@@ -19,12 +21,13 @@ export const PostSearchItem = ({ post }) => {
 
     return (
         <Flex width="100%"
-            bg="white"
+            bg={isDarkMode ? "#1a1a1b" : "white"}
             borderBottom="1px solid"
-            borderBottomColor="gray.200"
+            borderBottomColor={isDarkMode ? "#343536" : "gray.300"}
             p="14px"
             _hover={{
-                border: "1px solid gray"
+                border: "1px solid",
+                borderColor: "gray.500" 
             }}
             justify="space-between"
             cursor="pointer"
@@ -54,16 +57,18 @@ export const PostSearchItem = ({ post }) => {
                             mr={1}
                             cursor="pointer"
                             _hover={{ color: "blue.500" }}
+                             color={isDarkMode && "#d7dadc"}
+                             fontWeight={700}
                             onClick={(e)=> handleCommunityClick(post.channel._id, e)}
                        
                         >
                             r/{removeSpace(post.channel.name)}
                         </Text>}
-                        <Text color="gray.500">posted by {post.author.name}</Text>
+                        <Text color="gray.500">Posted by {post.author.name}</Text>
                     </Flex>
 
                     {/* Post Title */}
-                    {post.title && <Text fontSize="16px">{post.title}</Text>}
+                    {post.title && <Text fontSize="16px" color={isDarkMode && "#d7dadc"} fontWeight={600}>{post.title}</Text>}
                 </Stack>
 
 

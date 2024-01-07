@@ -3,12 +3,15 @@ import React, { useState } from 'react'
 import { FaReddit } from 'react-icons/fa'
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
+import useThemeStore from '../../store/ThemeStore/useThemeStore';
 
 export const CommunityPageHeader = ({ communityData }) => {
 
   const [isJoined, setIsJoined] = useState(false);
   const { isLoggedIn } = userLogInStore();
   const { setSignUpModal } = useSignUpModalStore();
+
+  const {isDarkMode} = useThemeStore();
 
   function removeSpace(str) {
     let removedSpacesText = str.split(" ").join("");
@@ -25,10 +28,10 @@ export const CommunityPageHeader = ({ communityData }) => {
   }
 
   return (
-    <Flex direction="column" width="100%" height="300px">
-      {/* <Box height="50%" bg="brand.100" /> */}
-      <Image src='/images/bannerBackgroundImage.jpg' height="70%" objectFit="cover" borderTop="2px solid" borderTopColor="gray.200"/>
-      <Flex justify="center" bg="white" flexFlow={1} height="100%">
+    <Flex direction="column" width="100%">
+      {isDarkMode ? <Box height="80px" bg="brand.100" /> :
+      <Image src='/images/bannerBackgroundImage.jpg' height="180px" objectFit="cover" borderTop="2px solid" borderTopColor="gray.200"/>}
+      <Flex justify="center" bg={isDarkMode ? "#1a1a1b" :"white"} flexFlow={1} height="70px">
         <Flex width="95%" maxWidth="860px" >
           {
             communityData.image ? (<Image src={communityData.image}
@@ -36,7 +39,7 @@ export const CommunityPageHeader = ({ communityData }) => {
               width={20}
               position="relative"
               top={-4}
-              border="4px solid white"
+              border={isDarkMode ? "4px solid #1a1a1b" : "4px solid white"}
               borderRadius="50%"
             />
             ) : (<Icon as={FaReddit}
@@ -54,6 +57,7 @@ export const CommunityPageHeader = ({ communityData }) => {
               <Text
                 fontWeight={800}
                 fontSize="16pt"
+                color={isDarkMode && "#d7dadc"}
               >
                 {removeSpace(communityData.name)}
               </Text>

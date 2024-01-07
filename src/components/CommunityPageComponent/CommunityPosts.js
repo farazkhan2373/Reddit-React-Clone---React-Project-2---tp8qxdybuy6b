@@ -3,10 +3,12 @@ import React from 'react'
 import { PostItem } from '../HomePageComponents/PostItem'
 import { PostLoader } from '../LoadingComponents/PostLoader'
 import { useNavigate } from 'react-router-dom'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, channelId, deletePost, editPost, handleComment}) => {
 
     const navigateTo = useNavigate();
+    const {isDarkMode} = useThemeStore();
 
     
   return (
@@ -17,7 +19,7 @@ export const CommunityPosts = ({communityPosts, increaseVote, decreaseVote, chan
              
         )) : (
             // IF THERE ARE NO POSTS SHOW ADD A POST BUTTON
-            <Stack padding={10} align="center" justify="center" border="1px dashed" borderColor="black" borderRadius="4px" height="300px">
+            <Stack padding={10} align="center" justify="center" border="1px dashed" borderColor={isDarkMode ? "#343536" : "black"} borderRadius="4px" height="300px">
                 <Text fontSize="15pt" fontWeight={700}>There are no posts in this subreddit</Text>
                 <Button height="34px" onClick={()=>navigateTo(`/submitpost`, {state: {channelId}})}>Add a post</Button>
             </Stack>

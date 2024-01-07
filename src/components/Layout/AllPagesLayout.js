@@ -1,10 +1,13 @@
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const AllPagesLayout = ({ children }) => {
+    const {isDarkMode} = useThemeStore();
     return (
         // border="1px solid black"
         <Flex justify="center" p="16px 0px" >
+            
 
             <Flex
              width="95%"

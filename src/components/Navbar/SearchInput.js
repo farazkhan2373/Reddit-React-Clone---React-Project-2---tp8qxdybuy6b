@@ -3,9 +3,11 @@ import { Button, Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/re
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 import { SearchIcon } from '@chakra-ui/icons';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import useThemeStore from '../../store/ThemeStore/useThemeStore';
 
 export const SearchInput = () => {
     const { isLoggedIn } = userLogInStore();
+    const {isDarkMode} = useThemeStore();
 
     const navigateTo = useNavigate();
 
@@ -22,30 +24,33 @@ export const SearchInput = () => {
 
     return (
 
-        <Flex flexGrow={1} maxWidth={isLoggedIn ? 'auto' : '600px'} align='center' mr={2}>
+        <Flex flexGrow={1} maxWidth={isLoggedIn ? 'auto' : '600px'} align='center' mr={2} >
 
             <InputGroup >
 
                 <InputLeftElement pointerEvents='none'>
-                    <SearchIcon color='gray.400' mb={1} />
+                    <SearchIcon color={isDarkMode ? "#D7DADC" : 'gray.400'} mb={1} />
                 </InputLeftElement>
 
                 <Input type='text'
                     placeholder='Search Reddit'
                     fontSize='10pt'
+                    border="none"
+                    color={isDarkMode && "#D7DADC"}
                     _placeholder={{ color: "gray.500" }}
                     _hover={{
-                        bg: 'white',
+                        bg: isDarkMode ? "#343536" :'white',
                         border: '1px solid',
-                        borderColor: "blue.500",
+                        borderColor: isDarkMode ? "white" : "blue.500",
                     }}
                     _focus={{
                         outline: 'none',
                         border: "1px solid",
-                        borderColor: "blue.500",
+                        borderColor: isDarkMode ? "#D7DADC" : "blue.500",
                     }}
+                    outline="none"
                     height='34px'
-                    bg='gray.50'
+                    bg={isDarkMode ? "#272729" : 'gray.50'}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />

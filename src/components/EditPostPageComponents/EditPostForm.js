@@ -6,6 +6,7 @@ import { EditTextInput } from './EditTextInput'
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const EditPostForm = ({channelId, postDetails, postId}) => {
 
@@ -21,6 +22,7 @@ export const EditPostForm = ({channelId, postDetails, postId}) => {
     const [errorMsg, setErrorMsg] = useState('');
 
     const navigateTo = useNavigate();
+    const {isDarkMode} = useThemeStore();
 
     function handleInputChange(e) {
         if(errorMsg){
@@ -76,7 +78,7 @@ export const EditPostForm = ({channelId, postDetails, postId}) => {
 
     
     return (
-        <Flex direction="column" bg="white" borderRadius={4} mt={2}>
+        <Flex direction="column" bg={isDarkMode ? "#1a1a1b" : "white"} borderRadius={4} mt={2}>
             <Flex width="100%">
                 <Flex
                     justify="center"
@@ -84,9 +86,9 @@ export const EditPostForm = ({channelId, postDetails, postId}) => {
                     flexGrow={1}
                     p="14px 0px"
                     fontWeight={700}
-                    color="brand.100"
-                    borderWidth="0px 1px 2px 0px"
-                    borderBottomColor="brand.100"
+                    color={isDarkMode ? "#d7dadc" :"brand.100"}
+                    borderBottom ="2px solid"
+                    borderBottomColor={isDarkMode ? "#d7dadc" :"brand.100"}
                 >
                     <Flex align="center" height="20px" mr={2}>
                         <Icon as={CiEdit} />

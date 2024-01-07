@@ -10,6 +10,7 @@ import { ImageUpload } from './PostForms/ImageUpload'
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 const formTabs = [
     {
@@ -50,6 +51,8 @@ export const NewPostForm = ({ channelId }) => {
     const [uploadedImage, setUploadedImage] = useState(null);
 
     const [uploadBtnLoading, setUploadBtnLoading] = useState(false);
+
+    const {isDarkMode} = useThemeStore();
 
     
     const navigateTo = useNavigate();
@@ -141,7 +144,7 @@ export const NewPostForm = ({ channelId }) => {
 
 
     return (
-        <Flex direction="column" bg="white" borderRadius={4} mt={2}>
+        <Flex direction="column" bg={isDarkMode ? "#1a1a1b" : "white"} borderRadius={4} mt={2}>
             <Flex width="100%">
                 {formTabs.map((item, index) => (
                     <TabItem item={item} key={index} isSelected={item.title === selectedTab} setSelectedTab={setSelectedTab} />

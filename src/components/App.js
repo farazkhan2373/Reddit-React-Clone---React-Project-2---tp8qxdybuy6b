@@ -11,7 +11,7 @@ import { SearchPage } from "../pages/SearchPage/SearchPage";
 function App() {
   return (
     
-    <div>
+    <div >
        <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/community/:channelId" element={<CommunityPage />} />

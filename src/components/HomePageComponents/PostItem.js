@@ -10,12 +10,14 @@ import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import { getHeadersWithUserToken } from '../utils/headersWithUserToken';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useThemeStore from '../../store/ThemeStore/useThemeStore';
 
 export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPost, handleComment }) => {
 
   const token = sessionStorage.getItem('userToken');
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
   const { setSignUpModal } = useSignUpModalStore();
+  const {isDarkMode} = useThemeStore();
   const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails'));
   const navigateTo = useNavigate();
 
@@ -29,18 +31,18 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
   return (
     <Flex
       border='1px solid'
-      bg='white'
-      borderColor='gray.300'
+      bg={isDarkMode ? "#1a1a1b" : "white"}
+      borderColor={isDarkMode ? "#343536" : 'gray.300'}
       borderRadius={4}
       _hover={{ borderColor: "gray.500" }}
-
+      
 
     >
       {/* VOTING BUTTON COLUMN */}
       <Flex
         direction="column"
         align="center"
-        bg="gray.100"
+        bg={isDarkMode ? "#101113" : "gray.100"}
         p={2}
         width="40px"
         borderRadius={4}
@@ -54,7 +56,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
           _hover={{ color: "brand.100" }}
           onClick={() => increaseVote(post._id)}
         />
-        <Text fontSize="9pt" fontWeight={600}>{post.likeCount}</Text>
+        <Text fontSize="9pt" fontWeight={600} color={isDarkMode && "#d7dadc"}>{post.likeCount}</Text>
         <Icon as={IoArrowDownCircleOutline}
           color="gray.400"
           cursor="pointer"
@@ -88,6 +90,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             <Text 
               mr={1} 
               cursor="pointer"
+              color={isDarkMode && "#d7dadc"}
               _hover={{color: "blue.500"}}
               fontWeight={700}
               onClick={()=> navigateTo(`/community/${post.channel._id}`)}
@@ -97,8 +100,8 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
           </Stack>
 
           {/* TITLE AND CONTENT */}
-          {post.title && <Text fontSize="14pt" fontWeight={600} >{post.title} </Text>}
-          {post.content && <Text fontSize="10pt">{post.content}</Text>}
+          {post.title && <Text fontSize="14pt" fontWeight={600} color={isDarkMode && "#d7dadc"} >{post.title} </Text>}
+          {post.content && <Text fontSize="10pt" color={isDarkMode && "#d7dadc"}>{post.content}</Text>}
 
           {/* POSTING IMAGE */}
           <Flex justify="center" align="center" p={2}>
@@ -110,13 +113,13 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
         </Stack>
 
         {/* COMMENT SHARE SAVE BUTTON */}
-        <Flex ml={1} mb={0.5} color="gray.500" >
+        <Flex ml={1} mb={0.5} color={isDarkMode ? "#818384" :"gray.500"} >
 
           <Flex
             align="center"
             padding="8px 10px"
             borderRadius={4}
-            _hover={{ bg: "gray.200" }}
+            _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
             cursor="pointer"
             onClick={()=> handleComment(post)}
           >
@@ -128,7 +131,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             align="center"
             padding="8px 10px"
             borderRadius={4}
-            _hover={{ bg: "gray.200" }}
+            _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
             cursor="pointer"
           >
             <Icon as={IoArrowRedoOutline} mr={2} />
@@ -139,7 +142,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             align="center"
             padding="8px 10px"
             borderRadius={4}
-            _hover={{ bg: "gray.200" }}
+            _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
             cursor="pointer"
           >
             <Icon as={IoBookmarkOutline} mr={2} />
@@ -151,7 +154,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             align="center"
             padding="8px 10px"
             borderRadius={4}
-            _hover={{ bg: "gray.200" }}
+            _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
             cursor="pointer"
             onClick={()=>editPost(post)}
           >
@@ -169,7 +172,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               align="center"
               padding="8px 10px"
               borderRadius={4}
-              _hover={{ bg: "gray.200" }}
+              _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
               cursor="pointer"
               onClick={()=>deletePost(post._id)}
             >

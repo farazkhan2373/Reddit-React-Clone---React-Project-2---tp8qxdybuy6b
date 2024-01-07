@@ -1,7 +1,11 @@
 import { Button, Flex, Input, Stack, Text, Textarea } from '@chakra-ui/react'
 import React from 'react'
+import useThemeStore from '../../../store/ThemeStore/useThemeStore'
 
 export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isLoading, errorMsg}) => {
+
+  const {isDarkMode} = useThemeStore();
+
   return (
    <Stack spacing={3} width="100%">
 
@@ -12,11 +16,15 @@ export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isL
         onChange={handleInputChange}
         fontSize="10pt"
         borderRadius={4}
+        border="none"
+        outline="1px solid"
+        outlineColor={isDarkMode ? "#343536" : "gray.300"}
+        color={isDarkMode && "#d7dadc"}
         placeholder='Title'
-        _placeholder={{color: "gray.500"}}
+        _placeholder={{color: "gray.500"}}    
         _focus={{
             outline: "none",
-            bg: "white",
+            bg: isDarkMode ? "#272729" : "white",
             border: "1px solid",
             borderColor: "black"
         }}
@@ -31,11 +39,15 @@ export const TextInputs = ({textInputs, handleInputChange, handleCreatePost, isL
         fontSize="10pt"
         borderRadius={4}
         height="100px"
+        border="none"
+        outline="1px solid"
+        outlineColor={isDarkMode ? "#343536" : "gray.300"}
+        color={isDarkMode && "#d7dadc"}
         placeholder='Text (Optional)'
         _placeholder={{color: "gray.500"}}
         _focus={{
             outline: "none",
-            bg: "white",
+            bg: isDarkMode ? "#272729" : "white",
             border: "1px solid",
             borderColor: "black"
         }}

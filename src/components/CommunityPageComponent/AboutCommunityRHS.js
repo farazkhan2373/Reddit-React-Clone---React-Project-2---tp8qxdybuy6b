@@ -3,8 +3,11 @@ import {HiOutlineDotsHorizontal} from 'react-icons/hi'
 import {RiCakeLine} from 'react-icons/ri'
 
 import React from 'react'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const AboutCommunityRHS = ({communityData}) => {
+
+    const {isDarkMode} = useThemeStore();
 
      function getFormattedDate(timeStamp){
         const date = new Date(timeStamp);
@@ -18,12 +21,12 @@ export const AboutCommunityRHS = ({communityData}) => {
      }
 
   return (
-    <Box position="sticky" top="14px">
+    <Box position="sticky" top="14px" >
        <Flex
         justify="space-between"
         align="center"
         bg="brand.100"
-        color="white"
+        color={isDarkMode ? "#d7dadc" : "white"}
         p={3}
         borderRadius="4px 4px 0px 0px"
        >
@@ -33,12 +36,12 @@ export const AboutCommunityRHS = ({communityData}) => {
 
        <Flex
         direction="column"
-        bg="white"
+        bg={isDarkMode ? "#1a1a1b" : "white"}
          padding={3}
          borderRadius="0px 0px 4px 4px"
        >
-        <Stack>
-            <Flex align={'center'} width="100%" p={1} fontSize="10pt" fontWeight={500}>
+        <Stack >
+            <Flex align={'center'} width="100%" p={1} fontSize="10pt" fontWeight={500} color={isDarkMode && "#d7dadc"}>
              <Icon as={RiCakeLine} fontSize={18} mr={2}/>
              <Text>Created at {getFormattedDate(communityData.createdAt)}</Text>
             </Flex>

@@ -5,6 +5,7 @@ import {BsLink45Deg} from "react-icons/bs"
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore'
 import { useNavigate } from 'react-router-dom'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const CreatePostLink = ({channelId}) => {
 
@@ -12,6 +13,8 @@ export const CreatePostLink = ({channelId}) => {
     const {setSignUpModal} = useSignUpModalStore();
     const {isLoggedIn} = userLogInStore();
     const navigateTo = useNavigate();
+
+    const {isDarkMode} = useThemeStore();
 
     function redirectToSubmitPost(){
       
@@ -29,11 +32,11 @@ export const CreatePostLink = ({channelId}) => {
     <Flex
      justify="space-evenly"
      align='center'
-     bg="white"
+     bg={isDarkMode ? "#1a1a1b" : "white"}
      height="56px"
      borderRadius={4}
      border="1px solid"
-     borderColor="gray.300"
+     borderColor={isDarkMode ? "#343536" : "gray.300"}
      p={2}
      mb={4}
     >
@@ -41,11 +44,15 @@ export const CreatePostLink = ({channelId}) => {
         <Input
           placeholder="Create a Post"
           fontSize="10pt"
+          bg={isDarkMode ? "#272729" : "gray.50"}
+          borderColor={isDarkMode ? "none" : "gray.200"}
+          borderRadius={4}
+          mr={4}
           _placeholder={{color: "gray.500"}}
           _hover={{
-            bg: "white",
+            bg: isDarkMode ? "#343536" : "white",
             border: "1px solid",
-            borderColor: "blue.500",
+            borderColor: isDarkMode ? "#d7dadc" : "blue.500",
           }}
           _focus={{
             outline: "none",
@@ -53,10 +60,7 @@ export const CreatePostLink = ({channelId}) => {
             border: "1px solid",
             borderColor: "blue.500",
           }}
-          bg="gray.50"
-          borderColor="gray.200"
-          borderRadius={4}
-          mr={4}
+          
           onClick={redirectToSubmitPost}
         />
         <Icon as={BsLink45Deg} fontSize={24} color="gray.400" cursor="pointer"/>

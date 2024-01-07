@@ -8,6 +8,7 @@ import { getHeadersWithProjectID } from '../utils/projectID'
 import axios from 'axios'
 import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 import { SearchInput } from './SearchInput'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const Navbar = () => {
 
@@ -15,6 +16,9 @@ export const Navbar = () => {
   const {menuButtonText, setMenuButtonText} = useMenuButtonTextStore();
   const location = useLocation();
   const navigateTo = useNavigate();
+  const {isDarkMode}  = useThemeStore();
+
+  console.log('isDarkMode', isDarkMode)
 
   function handleLogoClick(){
       navigateTo('/');
@@ -30,9 +34,13 @@ export const Navbar = () => {
 
 
   return (
-    <Flex bg='white' height='44px' 
+    <Flex bg={isDarkMode ? "#1A1A1B" : 'white'} height='44px' 
           padding='6px 12px'
           justify={{md: 'space-between'}}
+          borderBottom={isDarkMode && '1px solid'}
+          borderBottomColor={isDarkMode && '#343536'}
+
+
           >
 
        {/* NAVBAR -> LOGO DIV  */}
@@ -43,8 +51,9 @@ export const Navbar = () => {
              onClick={handleLogoClick}
              >
         <Image src="/images/redditFace.svg" height='30px'/>
-        <Image src="/images/redditText.svg" 
-        height='46px'
+        <Image src={isDarkMode ? "/images/redditWhiteText.svg" : "/images/redditText.svg"} 
+        height={isDarkMode ? "16px" : "46px"}
+        ml={isDarkMode && 1}
         //unset = oposite of none
         display={{base: 'none', md: 'unset'}}/>
        </Flex>

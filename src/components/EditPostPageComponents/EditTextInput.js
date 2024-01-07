@@ -1,23 +1,30 @@
 import { Button, Flex, Input, Stack, Textarea, Text } from '@chakra-ui/react'
 import React from 'react'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const EditTextInput = ({errorMsg, textInputs, handleInputChange, handleEditPost, isLoading}) => {
+
+  const {isDarkMode} = useThemeStore();
   return (
     <Stack spacing={3} width="100%">
 
     {/* TITLE INPUT */}
-     <Text color="gray.500" ml={2}>Edit Title</Text>
+     <Text color={isDarkMode ? "#d7dadc" : "gray.500"} ml={2}>Edit Title</Text>
        <Input
         name='title'
         value={textInputs.title}
         onChange={handleInputChange}
         fontSize="10pt"
         borderRadius={4}
+        border="none"
+        outline="1px solid"
+        outlineColor={isDarkMode ? "#343536" : "gray.300"}
+        color={isDarkMode && "#d7dadc"}
         placeholder='Title'
         _placeholder={{color: "gray.500"}}
         _focus={{
           outline: "none",
-          bg: "white",
+          bg: isDarkMode ? "#272729" : "white",
           border: "1px solid",
           borderColor: "black"
         }}
@@ -25,19 +32,22 @@ export const EditTextInput = ({errorMsg, textInputs, handleInputChange, handleEd
 
         {errorMsg && <Text fontSize="9pt" color="red" ml={2}>{errorMsg}</Text>}
        {/* CONTENT INPUT */}
-       <Text color="gray.500" ml={2}>Edit Content</Text>
+       <Text color={isDarkMode ? "#d7dadc" : "gray.500"} ml={2}>Edit Content</Text>
        <Textarea
         name='content'
         value={textInputs.content}
         onChange={handleInputChange}
         fontSize="10pt"
         borderRadius={4}
-        height="100px"
+        border="none"
+        outline="1px solid"
+        outlineColor={isDarkMode ? "#343536" : "gray.300"}
+        color={isDarkMode && "#d7dadc"}
         placeholder='Text (Optional)'
         _placeholder={{color: "gray.500"}}
         _focus={{
             outline: "none",
-            bg: "white",
+            bg: isDarkMode ? "#272729" : "white",
             border: "1px solid",
             borderColor: "black"
         }}

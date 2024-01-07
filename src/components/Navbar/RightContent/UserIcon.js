@@ -7,8 +7,11 @@ import {
     IoNotificationsOutline,
     IoVideocamOutline,
 } from "react-icons/io5";
+import useThemeStore from '../../../store/ThemeStore/useThemeStore';
 
 export const UserIcon = () => {
+
+    const {isDarkMode} = useThemeStore();
     return (
         <Flex>
 
@@ -24,7 +27,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={BsArrowUpRightCircle} fontSize={20} />
                 </Flex>
@@ -34,7 +38,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={IoFilterCircleOutline} fontSize={22} />
                 </Flex>
@@ -44,7 +49,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={IoVideocamOutline} fontSize={22} />
                 </Flex>
@@ -57,7 +63,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={BsChatDots} fontSize={20} />
                 </Flex>
@@ -67,7 +74,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={IoNotificationsOutline} fontSize={20} />
                 </Flex>
@@ -78,7 +86,8 @@ export const UserIcon = () => {
                     padding={1}
                     cursor="pointer"
                     borderRadius={4}
-                    _hover={{ bg: 'gray.200' }}
+                    _hover={{ bg: isDarkMode ? "#343536" : 'gray.200' }}
+                    color={isDarkMode && "#d7dadc"}
                 >
                     <Icon as={GrAdd} fontSize={20} />
                 </Flex>
