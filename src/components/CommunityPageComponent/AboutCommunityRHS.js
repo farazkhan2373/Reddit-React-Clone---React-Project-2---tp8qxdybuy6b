@@ -1,11 +1,12 @@
 import { Box, Flex, Icon, Stack, Text } from '@chakra-ui/react'
 import {HiOutlineDotsHorizontal} from 'react-icons/hi'
 import {RiCakeLine} from 'react-icons/ri'
+import {BsFilePostFill, BsFilePost, BsFillFileEarmarkPostFill   } from 'react-icons/bs'
 
 import React from 'react'
 import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
-export const AboutCommunityRHS = ({communityData}) => {
+export const AboutCommunityRHS = ({communityData, communityPosts}) => {
 
     const {isDarkMode} = useThemeStore();
 
@@ -45,6 +46,15 @@ export const AboutCommunityRHS = ({communityData}) => {
              <Icon as={RiCakeLine} fontSize={18} mr={2}/>
              <Text>Created at {getFormattedDate(communityData.createdAt)}</Text>
             </Flex>
+
+           
+              <Flex align={'center'} width="100%" p={1} fontSize="10pt" fontWeight={500} color={isDarkMode && "#d7dadc"}>
+               <Icon as={BsFilePost} fontSize={18} mr={2}/>
+              {communityPosts && <Text >{communityPosts.length} Posts</Text>}
+              </Flex>
+              
+           
+
         </Stack>
 
        </Flex>

@@ -107,7 +107,7 @@ export const Directory = () => {
           </Flex>
         }
       </MenuButton>
-      <MenuList>
+      <MenuList bg={isDarkMode ? "#1a1a1b" : "white"} border={isDarkMode && "1px solid"} borderColor={isDarkMode && "#343536"}>
         <Communities createdCommunityData={createdCommunityData} handleCommunityClick={handleCommunityClick} />
       </MenuList>
     </Menu>

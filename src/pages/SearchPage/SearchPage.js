@@ -120,7 +120,7 @@ export const SearchPage = () => {
 
     return (
         <AllPagesLayout>
-            {/* RHS */}
+            {/* LHS */}
             <>
                 <Flex direction="column" mt={2} >
 
@@ -140,9 +140,9 @@ export const SearchPage = () => {
             </>
 
 
-            {/* LHS */}
+            {/* RHS */}
             <>
-                <Heading>RHS</Heading>
+                {/* <Heading>RHS</Heading> */}
             </>
         </AllPagesLayout>
     )

@@ -13,6 +13,7 @@ import {
   Icon,
   Text,
   Center,
+  Switch,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import userLogInStore from '../../../store/AuthenticationStore/userLogInStore'
@@ -20,18 +21,23 @@ import { FaRedditSquare, FaRedditAlien } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { IoSparkles } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { MdOutlineLogin } from "react-icons/md";
+import { MdOutlineLogin, MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 import useThemeStore from '../../../store/ThemeStore/useThemeStore';
+import { useNavigate } from 'react-router-dom';
 
 
 export const UserMenuModal = () => {
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
   const {isDarkMode, setIsDarkMode} = useThemeStore();
 
+  const navigateTo = useNavigate();
+
   function handleLogout(){
     // sessionStorage.removeItem('userToken');
     // sessionStorage.removeItem('loggedInUserDetails');
     sessionStorage.clear();
+    navigateTo('/');
     setIsLoggedIn(false); 
     setIsDarkMode(false);
   }
@@ -42,7 +48,7 @@ export const UserMenuModal = () => {
   }
 
   function switchTheme(){
-    
+  
     sessionStorage.setItem('currentTheme', !isDarkMode);
     setIsDarkMode(!isDarkMode);
 
@@ -93,11 +99,13 @@ export const UserMenuModal = () => {
           </Flex>
         }
       </MenuButton>
-      <MenuList>
+      <MenuList border={isDarkMode ? "1px solid #343536" : "none" } bg={isDarkMode ? "#1a1a1b" : "white"}>
         <MenuItem
           fontSize='10pt'
           fontWeight={700}
-          _hover={{ bg: "blue.500", color: 'white' }}
+          bg={isDarkMode ? "#1a1a1b" : "white"}
+          color={isDarkMode && "#d7dadc"}
+          _hover={{ bg: isDarkMode ? "#343536" : "blue.500", color: 'white' }}
         >
           <Flex align="center">
             <Icon as={CgProfile}
@@ -110,21 +118,25 @@ export const UserMenuModal = () => {
          <MenuItem
           fontSize='10pt'
           fontWeight={700}
-          _hover={{ bg: "blue.500", color: 'white' }}
+          bg={isDarkMode ? "#1a1a1b" : "white"}
+          color={isDarkMode && "#d7dadc"}
+          _hover={{ bg: isDarkMode ? "#343536" : "blue.500", color: 'white' }}
           onClick={switchTheme}
         >
-          <Flex align="center">
-            <Icon as={CgProfile}
+          <Flex align="center" >
+          <Icon as={isDarkMode ? CiLight : MdDarkMode}
               fontSize={20} mr={2}
             />
-            Dark Mode
+            {isDarkMode ? "Light Mode" : "Dark Mode"}
           </Flex>
         </MenuItem>
          <MenuDivider/>
         <MenuItem
           fontSize='10pt'
           fontWeight={700}
-          _hover={{ bg: "blue.500", color: 'white' }}
+          bg={isDarkMode ? "#1a1a1b" : "white"}
+          color={isDarkMode && "#d7dadc"}
+          _hover={{ bg: isDarkMode ? "#343536" : "blue.500", color: 'white' }}
           onClick={handleLogout}
         >
           <Flex align="center">

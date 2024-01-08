@@ -21,8 +21,10 @@ export const CommunityRecommendation = () => {
             const allCommunity = response.data.data;
 
             const top5Community = [];
-            for (let i = 0; i < 5; i++) {
+            let a = 1;
+            for (let i = allCommunity.length-1; a < 6; i--) {
                 top5Community.push(allCommunity[i]);
+                a++;
             }
             console.log("top 5 community", top5Community);
 

@@ -5,6 +5,7 @@ import { NewPostForm } from '../../components/SubmitPostPageComponents/NewPostFo
 import { useLocation } from 'react-router-dom'
 import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 import useThemeStore from '../../store/ThemeStore/useThemeStore'
+import { SubmitPostRhs } from '../../components/SubmitPostPageComponents/SubmitPostRhs'
 
 export const SubmitPostPage = () => {
   const location = useLocation();
@@ -32,7 +33,9 @@ export const SubmitPostPage = () => {
      </>
 
      {/* RHS */}
-     <>RHS</>
+     <>
+      <SubmitPostRhs/>
+     </>
 
    </AllPagesLayout>
   )

@@ -180,7 +180,7 @@ function handleComment(postDetails){
           
          {/* below fragment will go into all pages layout flex children[1] RHS */}
         <>
-        <AboutCommunityRHS communityData={communityData}/>
+        <AboutCommunityRHS communityData={communityData} communityPosts={communityPosts}/>
         </>
       </AllPagesLayout>
     </>

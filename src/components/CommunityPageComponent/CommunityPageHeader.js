@@ -42,12 +42,14 @@ export const CommunityPageHeader = ({ communityData }) => {
               border={isDarkMode ? "4px solid #1a1a1b" : "4px solid white"}
               borderRadius="50%"
             />
-            ) : (<Icon as={FaReddit}
+            ) : ( <Icon as={FaReddit}
               fontSize={64}
               position="relative"
               top={-4}
+              bg="white"
               color="brand.100"
-              border="4px solid white"
+              border="4px solid"
+              borderColor={isDarkMode ? "#1a1a1b" : "white" }
               borderRadius="50%"
             />
             )}

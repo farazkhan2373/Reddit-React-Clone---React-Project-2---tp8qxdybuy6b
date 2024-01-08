@@ -27,7 +27,6 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
   }
 
 
-
   return (
     <Flex
       border='1px solid'
@@ -97,6 +96,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               >r/{removeSpace(post.channel.name)}</Text>}
               
             <Text color="gray.500">Posted by u/{post.author.name}</Text>
+            
           </Stack>
 
           {/* TITLE AND CONTENT */}

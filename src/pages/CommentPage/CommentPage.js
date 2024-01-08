@@ -231,7 +231,7 @@ async function deleteComment(commentId){
 
 
       <>
-        <Heading>RHS</Heading>
+        {/* <Heading>RHS</Heading> */}
       </>
     </AllPagesLayout>
   )
