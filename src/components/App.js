@@ -7,6 +7,7 @@ import { SubmitPostPage } from "../pages/SubmitPostPage/SubmitPostPage";
 import { EditPostPage } from "../pages/EditPostPage/EditPostPage";
 import { CommentPage } from "../pages/CommentPage/CommentPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
+import { RedditPremium } from "../pages/RedditPremium/RedditPremium";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/editpost" element={<EditPostPage />} />
         <Route path="/comment/:postId" element={<CommentPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/redditpremium" element={<RedditPremium />} />
        </Routes>
     </div>
     
