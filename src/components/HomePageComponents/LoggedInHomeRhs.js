@@ -3,6 +3,7 @@ import React from 'react';
 import { RedditPrimiumBox } from './RhsComponents/RedditPrimiumBox.js';
 import { RedditHomeBox } from './RhsComponents/RedditHomeBox.js';
 import { CopyRightBox } from './RhsComponents/CopyRightBox.js';
+import { CommunityRecommendation } from './CommunityRecommendation.js';
 
 
 
@@ -13,6 +14,8 @@ export const LoggedInHomeRhs = () => {
      <RedditPrimiumBox/>
 
      <RedditHomeBox/>
+
+     <CommunityRecommendation/>
 
      <CopyRightBox/>
 

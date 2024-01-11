@@ -9,15 +9,19 @@ import { getHeadersWithProjectID } from '../../utils/projectID'
 import axios from 'axios'
 import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore'
 import useThemeStore from '../../../store/ThemeStore/useThemeStore'
+import { FollowedCommunityList } from './FollowedCommunityList'
 
 
-export const Communities = ({ createdCommunityData, handleCommunityClick }) => {
+export const Communities = ({ createdCommunityData, handleCommunityClick, userFollowedCommunity }) => {
 
 
   const [showCommunityModal, setCommunityModal] = useState(false);
   const { menuButtonText, setMenuButtonText } = useMenuButtonTextStore();
 
   const { isDarkMode } = useThemeStore();
+
+  console.log("followed communities in tesing ", userFollowedCommunity);
+  
 
 
   return (
@@ -57,6 +61,19 @@ export const Communities = ({ createdCommunityData, handleCommunityClick }) => {
             Create Community
           </Flex>
         </MenuItem>
+
+        {/* FOLLOWED COMMUNITY */}
+        {userFollowedCommunity && 
+         <>
+        <Text pl={3} mb={1} mt={2} fontSize="7pt" fontWeight={500} color="gray.500">
+          YOUR COMMUNITIES
+        </Text>
+        {userFollowedCommunity.length > 0 && userFollowedCommunity.map((community, index)=>(
+          <FollowedCommunityList key={index} community={community} handleCommunityClick={handleCommunityClick} />
+        ))}
+        </>
+        }
+
 
         {/* FEEDS HOME POPULAR */}
         <Text pl={3} mb={1} mt={2} fontSize="7pt" fontWeight={500} color="gray.500">

@@ -49,10 +49,11 @@ export const SearchInput = () => {
                         outline: 'none',
                         border: "1px solid",
                         borderColor: isDarkMode ? "#D7DADC" : "blue.500",
+                        bg: isDarkMode ? "#343536" :'white',
                     }}
                     outline="none"
                     height='34px'
-                    bg={isDarkMode ? "#272729" : 'gray.50'}
+                    bg={isDarkMode ? "#272729" : 'gray.100'}
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />

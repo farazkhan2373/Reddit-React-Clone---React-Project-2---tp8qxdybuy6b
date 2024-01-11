@@ -18,6 +18,7 @@ import { getHeadersWithProjectID } from '../../utils/projectID'
 import axios from 'axios'
 import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore';
 import useThemeStore from '../../../store/ThemeStore/useThemeStore';
+import useUpdateDirectory from '../../../store/DirectoryStore/useUpdateDirectory';
 
 
 export const Directory = () => {
@@ -25,7 +26,13 @@ export const Directory = () => {
   const { menuButtonText, setMenuButtonText } = useMenuButtonTextStore();
   const [createdCommunityData, setCreatedCommunityData] = useState(null);
 
+  const communityFollowed = JSON.parse(sessionStorage.getItem('communityFollowed'));
+  const [userFollowedCommunity, setUserFollowedCommunity] = useState(null);
+
+
   const { isDarkMode } = useThemeStore();
+
+  const {updateDirectory} = useUpdateDirectory();
 
   const navigateTo = useNavigate();
 
@@ -62,6 +69,23 @@ export const Directory = () => {
       })
       console.log('created channels', userCreatedChannels);
       setCreatedCommunityData(userCreatedChannels);             // seting user created channels to state
+
+      // getting user followed communitys
+      let followedChannelLists = [];
+      if(communityFollowed !== null){
+
+          for(let element of communityFollowed){
+             let followedChannel = allChannels.find((item)=> item._id === element);
+              followedChannelLists.push(followedChannel);
+          }
+
+          // console.log("followed communities", followedChannelLists); working fine
+          setUserFollowedCommunity(followedChannelLists);
+      }else{
+        setUserFollowedCommunity(null);
+      }
+
+
     }
     catch (error) {
       console.log("error in fetching communities", error.response);
@@ -70,7 +94,7 @@ export const Directory = () => {
 
   useEffect(() => {
     getCreatedCommunityList();
-  }, []);
+  }, [updateDirectory]);
 
 
   return (
@@ -107,8 +131,8 @@ export const Directory = () => {
           </Flex>
         }
       </MenuButton>
-      <MenuList bg={isDarkMode ? "#1a1a1b" : "white"} border={isDarkMode && "1px solid"} borderColor={isDarkMode && "#343536"}>
-        <Communities createdCommunityData={createdCommunityData} handleCommunityClick={handleCommunityClick} />
+      <MenuList bg={isDarkMode ? "#1a1a1b" : "white"} border={isDarkMode && "1px solid"} borderColor={isDarkMode && "#343536"} maxHeight="300px" overflowY={'auto'}>
+        <Communities createdCommunityData={createdCommunityData} handleCommunityClick={handleCommunityClick} userFollowedCommunity={userFollowedCommunity} />
       </MenuList>
     </Menu>
   )

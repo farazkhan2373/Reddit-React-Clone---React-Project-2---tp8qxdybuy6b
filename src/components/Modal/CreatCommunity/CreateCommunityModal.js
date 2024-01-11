@@ -24,6 +24,7 @@ import axios from 'axios';
 import { getHeadersWithUserToken } from '../../utils/headersWithUserToken';
 import { useNavigate } from 'react-router-dom';
 import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore';
+import useUpdateDirectory from '../../../store/DirectoryStore/useUpdateDirectory';
 
 export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
 
@@ -36,6 +37,7 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
   const [btnLoading, setBtnLoading] = useState(false);
   const navigateTo = useNavigate();
   
+  const {setUpdateDirectory} = useUpdateDirectory();
 
   function handleInputChange(e){
 
@@ -65,10 +67,12 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
           const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', body, config);
           console.log("create comm response", response.data);
           navigateTo(`/community/${response.data.data._id}`);
-          location.reload(); // refreshing page it will add name of new created community in menu list
           sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);
           handleClose();
           setBtnLoading(false);
+          setUpdateDirectory((oldState)=>{
+            return !oldState
+          })
           
         }
         catch(error){

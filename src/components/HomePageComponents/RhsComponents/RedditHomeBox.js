@@ -18,7 +18,7 @@ export const RedditHomeBox = () => {
    }
 
   return (
-    <Stack mt={2} gap={0}  maxWidth="300px" borderRadius="4px" overflow="hidden" border="1px solid" borderColor={isDarkMode ? "#343536" : "gray.300"} >
+    <Stack mt={2} mb={2} gap={0}  maxWidth="300px" borderRadius="4px" overflow="hidden" border="1px solid" borderColor={isDarkMode ? "#343536" : "gray.300"} >
 
      <Image src='/images/redditPersonalHome.png' width="100%" height="30px" objectFit="cover"/>
 

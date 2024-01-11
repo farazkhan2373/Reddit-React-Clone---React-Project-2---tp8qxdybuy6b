@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../utils/projectID'
 import axios from 'axios'
 import { CommunitySuggestionLoader } from '../LoadingComponents/CommunitySuggestionLoader'
+import useThemeStore from '../../store/ThemeStore/useThemeStore'
 
 export const CommunityRecommendation = () => {
 
@@ -13,6 +14,8 @@ export const CommunityRecommendation = () => {
         let removedSpacesText = str.split(" ").join("");
         return removedSpacesText
     }
+
+    const {isDarkMode} = useThemeStore();
 
     const getTop5Community = async () => {
         const config = getHeadersWithProjectID();
@@ -43,12 +46,11 @@ export const CommunityRecommendation = () => {
     return (
         <Flex
             direction="column"
-            bg="white"
+            bg={isDarkMode ? "#1a1a1b" : "white"}
             borderRadius={4}
             border="1px solid"
-            borderColor="gray.300"
-            position='sticky'
-            top='20px'
+            borderColor={isDarkMode ? "#343536" : "gray.300"}
+
         >
             <Flex
                 align="flex-end"
@@ -72,13 +74,14 @@ export const CommunityRecommendation = () => {
                                 <Flex
                                     align="center"
                                     fontSize="10pt"
-                                    borderBottom="1px solid"
-                                    borderColor="gray.200"
+                                    borderTop="1px solid"
+                                    borderColor={isDarkMode ? "#343536"  : "gray.200"}
                                     p="10px 12px"
                                     _hover={{ color: "blue.500" }}
+                                    color={isDarkMode && "#d7dadc"}
 
                                 >
-                                    <Flex width="100%" align="center">
+                                    <Flex width="100%" align="center" >
                                         <Flex width="15%">
                                             <Text>{index + 1}</Text>
                                         </Flex>
