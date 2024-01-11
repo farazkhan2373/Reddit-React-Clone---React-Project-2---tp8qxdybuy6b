@@ -39,7 +39,9 @@ export const Navbar = () => {
           justify={{md: 'space-between'}}
           borderBottom={isDarkMode && '1px solid'}
           borderBottomColor={isDarkMode && '#343536'}
-
+          position="sticky"
+          top="0px"
+          zIndex="999"
 
           >
 

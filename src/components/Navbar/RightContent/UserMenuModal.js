@@ -55,6 +55,12 @@ export const UserMenuModal = () => {
 
   }
 
+  function handleProfileClick(){
+    navigateTo(`/profile/${loggedInUserDetails._id}`)
+  }
+
+  const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails'))
+
   return (
     <Menu>
       {/* IF USER IS LOGGED IN THEN SHOW MENU BUTTON */}
@@ -106,6 +112,7 @@ export const UserMenuModal = () => {
           bg={isDarkMode ? "#1a1a1b" : "white"}
           color={isDarkMode && "#d7dadc"}
           _hover={{ bg: isDarkMode ? "#343536" : "blue.500", color: 'white' }}
+          onClick={handleProfileClick}
         >
           <Flex align="center">
             <Icon as={CgProfile}

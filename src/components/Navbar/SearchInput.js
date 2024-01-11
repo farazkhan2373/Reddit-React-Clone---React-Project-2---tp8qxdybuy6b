@@ -24,7 +24,7 @@ export const SearchInput = () => {
 
     return (
 
-        <Flex flexGrow={1} maxWidth={isLoggedIn ? 'auto' : '600px'} align='center' mr={2} >
+        <Flex flexGrow={1} maxWidth={isLoggedIn ? 'auto' : '600px'} align='center' mr={2}>
 
             <InputGroup >
 
@@ -36,8 +36,10 @@ export const SearchInput = () => {
                     placeholder='Search Reddit'
                     fontSize='10pt'
                     border="none"
+                    borderRadius="20px"
                     color={isDarkMode && "#D7DADC"}
                     _placeholder={{ color: "gray.500" }}
+                    
                     _hover={{
                         bg: isDarkMode ? "#343536" :'white',
                         border: '1px solid',
@@ -59,7 +61,7 @@ export const SearchInput = () => {
 
             <Button
                 height="36px"
-                borderRadius="6px"
+                borderRadius="20px"
                 ml={1}
                 onClick={handleSearch}
                 isDisabled={!searchText.length}

@@ -48,10 +48,10 @@ export const EditPostForm = ({channelId, postDetails, postId}) => {
               navigateTo(`/community/${channelId}`); // redirect to community page
             }
             else if(postId){
-                navigateTo(`/comment/${postId}`); // redirect to home page
+                navigateTo(`/comment/${postId}`); // redirect to comment page
             }
             else{
-                navigateTo('/');
+                navigateTo('/');  // redirect to home page
             }
         }
         catch(error){

@@ -8,6 +8,7 @@ import { EditPostPage } from "../pages/EditPostPage/EditPostPage";
 import { CommentPage } from "../pages/CommentPage/CommentPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
 import { RedditPremium } from "../pages/RedditPremium/RedditPremium";
+import { ProfilePage } from "../pages/ProfilePage/ProfilePage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/comment/:postId" element={<CommentPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/redditpremium" element={<RedditPremium />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
        </Routes>
     </div>
     
