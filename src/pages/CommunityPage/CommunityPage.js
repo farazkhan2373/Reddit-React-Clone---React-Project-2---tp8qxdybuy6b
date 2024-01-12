@@ -15,6 +15,7 @@ import useSignUpModalStore from '../../store/ModalStore/SignUpModalStore';
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
 import useThemeStore from '../../store/ThemeStore/useThemeStore';
 import { AlertBox } from '../../components/CommunityPageComponent/AlertBox';
+import { RedditGifLoader } from '../../components/LoadingComponents/RedditGifLoader';
 
 
 export const CommunityPage = () => {
@@ -87,8 +88,11 @@ export const CommunityPage = () => {
 
   useEffect(() => {
     //  getCommunity function is working fine geting response
-    getCommunity(channelId);
-    getPostsOfCommunity();
+    setTimeout(()=>{
+      getCommunity(channelId);
+      getPostsOfCommunity();
+
+    }, 2000)
 
 
 
@@ -201,7 +205,7 @@ export const CommunityPage = () => {
       </AllPagesLayout>
     </>
     :
-    (<Heading>Loading...</Heading>)
+    (<RedditGifLoader/>)
 
 
 }

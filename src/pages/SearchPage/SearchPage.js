@@ -8,15 +8,16 @@ import { useLocation } from 'react-router-dom'
 import { getHeadersWithProjectID } from '../../components/utils/projectID'
 import axios, { all } from 'axios'
 import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
+import userLogInStore from '../../store/AuthenticationStore/userLogInStore.js'
+
 
 const searchTabs = [
     {
        title: "Posts"
     },
     {
-        title: "Communities"
-        
-    }
+        title: "Communities"  
+    } 
 ]
 
 export const SearchPage = () => {
@@ -28,11 +29,14 @@ export const SearchPage = () => {
 
     const {setMenuButtonText} = useMenuButtonTextStore();
 
+    const {isLoggedIn} = userLogInStore();
+
 
     const [selectedTab, setSelectedTab] = useState(searchTabs[0].title);
 
     const [posts, setPosts] = useState(null);
     const [communities, setCommunities] = useState(null);
+    const [users, setUsers] = useState(null);
 
 
 
@@ -133,6 +137,9 @@ export const SearchPage = () => {
                    {selectedTab === "Posts" && <PostTab query={query} posts={posts}/>}
 
                    {selectedTab === "Communities" && <CommunityTab query={query} communities={communities}/>}
+
+ 
+                   
 
                 </Flex>
                
