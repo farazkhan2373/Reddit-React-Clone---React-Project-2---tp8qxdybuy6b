@@ -29,7 +29,7 @@ export const CommunitySearchItem = ({community}) => {
             align="center"
             onClick={() => navigateTo(`/community/${community._id}`)}
         >
-            {community.image ? <Image src={community.image} height="40px" width="40px" objectFit="cover" borderRadius="50%"/> 
+            {community.image ? <Image src={community.image}  mr={4} height="40px" width="40px" objectFit="cover" borderRadius="50%"/> 
             : 
             <Icon as={FaReddit} fontSize="40px" mr={4} color="blue.400" />}
             <Text color={isDarkMode && "#d7dadc"} fontWeight={600} _hover={{color: "blue.500"}}>r/{removeSpace(community.name)}</Text>

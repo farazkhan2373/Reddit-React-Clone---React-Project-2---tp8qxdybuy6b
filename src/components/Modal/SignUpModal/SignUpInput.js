@@ -48,6 +48,41 @@ export const SignUpInput = () => {
         console.log('name', signUpForm.name);
         console.log('email', signUpForm.email);
         console.log('password', signUpForm.password);
+
+        let alphabetRegex = /^[a-zA-Z]+$/;
+
+        const userName = signUpForm.name;
+
+        if(!alphabetRegex.test(userName)){
+            setErrorMessage('Name can only contain Aplhabets and must be atleast 3 characters long');
+            setButtonLoading(false);
+            return;
+        }
+
+        if(userName.length < 3){
+            setErrorMessage('Name can only contain Aplhabets and must be atleast 3 characters long');
+            setButtonLoading(false);
+            return;
+        }
+
+        if(!signUpForm.email.includes('.')){
+            setErrorMessage('Invalid Email');
+            setButtonLoading(false);
+            return;
+        }
+
+        
+
+        if(signUpForm.password.length < 5){
+            setErrorMessage('The Password must be atleast 5 characters long');
+            setButtonLoading(false);
+            return;
+        }
+        
+        
+       
+
+
         const userDetails = {
             name: signUpForm.name,
             email: signUpForm.email,
@@ -61,6 +96,8 @@ export const SignUpInput = () => {
     function handleInputChange(e){
         setErrorMessage(false);
         const {name, value} = e.target;
+
+
         setSignUpForm((prev)=>{
           return {...prev, [name]: value}
         })

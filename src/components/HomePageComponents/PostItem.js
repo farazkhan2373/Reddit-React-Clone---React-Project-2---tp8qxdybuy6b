@@ -1,4 +1,4 @@
-import { Flex, Icon, Image, Stack, Text } from '@chakra-ui/react'
+import { Flex, Icon, Image, Stack, Text, chakra } from '@chakra-ui/react'
 import React from 'react'
 import { IoArrowUpCircleOutline, IoArrowDownCircleOutline, IoArrowUpCircleSharp, IoArrowRedoOutline, IoBookmarkOutline } from 'react-icons/io5'
 import { BsChat } from 'react-icons/bs';
@@ -17,13 +17,21 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
   const token = sessionStorage.getItem('userToken');
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
   const { setSignUpModal } = useSignUpModalStore();
-  const {isDarkMode} = useThemeStore();
+  const { isDarkMode } = useThemeStore();
   const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails'));
   const navigateTo = useNavigate();
 
   function removeSpace(str) {
     let removedSpacesText = str.split(" ").join("");
     return removedSpacesText
+  }
+
+  function redirectToProfile(userId) {
+    if(!isLoggedIn){
+      setSignUpModal(true);
+      return;
+    }
+    navigateTo(`/profile/${userId}`);
   }
 
 
@@ -34,7 +42,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
       borderColor={isDarkMode ? "#343536" : 'gray.300'}
       borderRadius={4}
       _hover={{ borderColor: "gray.500" }}
-      
+
 
     >
       {/* VOTING BUTTON COLUMN */}
@@ -75,7 +83,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             align="center"
             fontSize="9pt"
           >
-            {post.channel ? post.channel.image  ? <Image src={post.channel.image}
+            {post.channel ? post.channel.image ? <Image src={post.channel.image}
               height={6}
               width={6}
               borderRadius='50%'
@@ -84,19 +92,26 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             />
               :
               <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" /> : <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" />}
-              
-            {post.channel && 
-            <Text 
-              mr={1} 
-              cursor="pointer"
-              color={isDarkMode && "#d7dadc"}
-              _hover={{color: "blue.500"}}
-              fontWeight={700}
-              onClick={()=> navigateTo(`/community/${post.channel._id}`)}
+
+            {post.channel &&
+              <Text
+                mr={1}
+                cursor="pointer"
+                color={isDarkMode && "#d7dadc"}
+                _hover={{ color: "blue.500" }}
+                fontWeight={700}
+                onClick={() => navigateTo(`/community/${post.channel._id}`)}
               >r/{removeSpace(post.channel.name)}</Text>}
-              
-            <Text color="gray.500">Posted by u/{post.author.name}</Text>
-            
+
+            <Text color="gray.500">
+              Posted by <chakra.span cursor="pointer"
+               _hover={{ textDecoration: "underline", color: "gray.600" }}
+                onClick={() => redirectToProfile(post.author._id)}
+              >
+                u/{post.author.name}
+              </chakra.span>
+            </Text>
+
           </Stack>
 
           {/* TITLE AND CONTENT */}
@@ -113,7 +128,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
         </Stack>
 
         {/* COMMENT SHARE SAVE BUTTON */}
-        <Flex ml={1} mb={0.5} color={isDarkMode ? "#818384" :"gray.500"} >
+        <Flex ml={1} mb={0.5} color={isDarkMode ? "#818384" : "gray.500"} >
 
           <Flex
             align="center"
@@ -121,7 +136,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             borderRadius={4}
             _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
             cursor="pointer"
-            onClick={()=> handleComment(post)}
+            onClick={() => handleComment(post)}
           >
             <Icon as={BsChat} mr={2} />
             <Text fontSize="9pt">{post.commentCount}</Text>
@@ -151,16 +166,16 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
 
           {isLoggedIn && post.author._id === loggedInUserDetails._id && (
             <Flex
-            align="center"
-            padding="8px 10px"
-            borderRadius={4}
-            _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
-            cursor="pointer"
-            onClick={()=>editPost(post)}
-          >
-            <Icon as={CiEdit} mr={2} />
-            <Text fontSize="9pt">Edit</Text>
-          </Flex>
+              align="center"
+              padding="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
+              cursor="pointer"
+              onClick={() => editPost(post)}
+            >
+              <Icon as={CiEdit} mr={2} />
+              <Text fontSize="9pt">Edit</Text>
+            </Flex>
           )}
 
           {/* Delete icon User created channel can delete any of his channel post if */}
@@ -169,16 +184,16 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             (post.channel && post.channel.owner === loggedInUserDetails._id)
           ) && (
               <Flex
-              align="center"
-              padding="8px 10px"
-              borderRadius={4}
-              _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
-              cursor="pointer"
-              onClick={()=>deletePost(post._id)}
-            >
-              <Icon as={MdDeleteOutline} mr={2} />
-              <Text fontSize="9pt">Delete</Text>
-            </Flex>
+                align="center"
+                padding="8px 10px"
+                borderRadius={4}
+                _hover={{ bg: isDarkMode ? "#343536" : "gray.200" }}
+                cursor="pointer"
+                onClick={() => deletePost(post._id)}
+              >
+                <Icon as={MdDeleteOutline} mr={2} />
+                <Text fontSize="9pt">Delete</Text>
+              </Flex>
 
             )}
 

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { getHeadersWithUserToken } from '../../components/utils/headersWithUserToken'
 import { CommunityNotFound } from '../../components/CommunityPageComponent/CommunityNotFound'
 import { Heading } from '@chakra-ui/react'
+import useMenuButtonTextStore from '../../store/NavigatorStore/useMenuButtonTextStore'
 
 
 export const ProfilePage = () => {
@@ -55,9 +56,13 @@ export const ProfilePage = () => {
     }
 }
 
+const {setMenuButtonText} = useMenuButtonTextStore();
+
   useEffect(()=>{
         fetchPosts();
         fetchUserDetails();
+        setMenuButtonText('Profile');
+        sessionStorage.setItem('menuButtonText', 'Profile');
   }, [userId])
 
   return ( userDetails ? userDetails === 'User Not Found' ? <CommunityNotFound/> :

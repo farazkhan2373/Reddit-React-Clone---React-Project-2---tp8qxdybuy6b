@@ -3,12 +3,14 @@ import React from 'react'
 import { FaReddit } from 'react-icons/fa'
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore'
 import useThemeStore from '../../store/ThemeStore/useThemeStore'
+import { useNavigate } from 'react-router-dom'
 
 export const CommentItem = ({comment, deleteComment}) => {
 
     const {isLoggedIn} = userLogInStore();
     const loggedInUserDetails = JSON.parse(sessionStorage.getItem('loggedInUserDetails') ) ;
     const {isDarkMode} = useThemeStore();
+    const navigateTo = useNavigate();
 
     function timeStamp(timeString){
         const dateObject = new Date(timeString);
@@ -24,6 +26,11 @@ export const CommentItem = ({comment, deleteComment}) => {
         return formattedDateWithTime;
     }
 
+    function redirectToProfile(profileId){
+        
+        navigateTo(`/profile/${profileId}`)
+    }
+
     return (
         <Flex ml={8}>
             <Box mr={2}>
@@ -32,7 +39,14 @@ export const CommentItem = ({comment, deleteComment}) => {
 
             <Stack spacing={1}>
                 <Stack direction="row" align="center" fontSize="8pt">
-                    <Text fontWeight={700} color={isDarkMode &&  "#d7dadc"}>{comment.author}</Text>
+                    <Text fontWeight={700} 
+                          color={isDarkMode &&  "#d7dadc"}
+                           _hover={{color: "blue.500"}} 
+                           cursor="pointer"
+                           onClick={()=> redirectToProfile(comment.author)}
+                           >
+                            {comment.author}
+                            </Text>
                     <Text color="gray.500">{timeStamp(comment.createdAt)}</Text>
                 </Stack>
 
