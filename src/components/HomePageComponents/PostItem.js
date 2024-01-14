@@ -91,7 +91,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               mr={1}
             />
               :
-              <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" /> : <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" />}
+              <Icon as={FaReddit} fontSize={20} mr={1} borderRadius="20px" color="brand.100" bg={isDarkMode && "white"} /> : <Icon as={FaReddit} fontSize={20} mr={1} color="brand.100" borderRadius="20px" bg={isDarkMode && "white"} />}
 
             {post.channel &&
               <Text

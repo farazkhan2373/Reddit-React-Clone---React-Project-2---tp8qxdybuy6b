@@ -115,6 +115,8 @@ export const Directory = () => {
           >
             <Flex align='center'>
               <Icon as={menuButtonText === 'Home' ? TiHome : menuButtonText === 'Oops!!!' ? MdError : FaReddit} fontSize={24} mr={{ base: 1, md: 2 }} color={menuButtonText !== 'Home' ? "blue.400" : isDarkMode ? "#D7DADC" : "black"} />
+              {/* {menuButtonText == 'Home' && <Icon as={TiHome} fontSize={24} mr={{ base: 1, md: 2 }} color={isDarkMode ? "#D7DADC" : "black"}/>} */}
+              {/* {menuButtonText == 'Oops!!!' && <Icon as={MdError} fontSize={24} mr={{ base: 1, md: 2 }} color={isDarkMode ? "#D7DADC" : "black"}/>} */}
               <Flex display={{ base: "none", lg: 'flex' }} >
                 {/* BELOW IS MENU BUTTON TEXT */}
                 <Text fontWeight={600}

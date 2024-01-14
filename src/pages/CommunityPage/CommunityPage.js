@@ -193,6 +193,9 @@ export const CommunityPage = () => {
             deletePost={deletePost}
             editPost={editPost}
             handleComment={handleComment}
+            isAlertOpen={isAlertOpen}
+            setIsAlertOpen={setIsAlertOpen}
+            isJoined={isJoined}
           />
           
 

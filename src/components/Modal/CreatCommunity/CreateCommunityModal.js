@@ -25,6 +25,7 @@ import { getHeadersWithUserToken } from '../../utils/headersWithUserToken';
 import { useNavigate } from 'react-router-dom';
 import useMenuButtonTextStore from '../../../store/NavigatorStore/useMenuButtonTextStore';
 import useUpdateDirectory from '../../../store/DirectoryStore/useUpdateDirectory';
+import useThemeStore from '../../../store/ThemeStore/useThemeStore';
 
 export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
 
@@ -35,9 +36,10 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
   const [communityType, setCommunityType] = useState("public");
   const [errorMessage, setErrorMessage] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
-  const navigateTo = useNavigate();
-  
   const {setUpdateDirectory} = useUpdateDirectory();
+  const {isDarkMode} = useThemeStore();
+
+  const navigateTo = useNavigate();
 
   function handleInputChange(e){
 
@@ -107,13 +109,15 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
 
   }
 
+
+
   return (
     <>
       
 
-      <Modal isOpen={showCommunityModal} onClose={handleClose} size="lg">
+      <Modal isOpen={showCommunityModal} onClose={handleClose} size="lg" >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={isDarkMode ? "#1a1a1b" : "white"} color={isDarkMode && "#d7dadc"} border="1px solid" borderColor={isDarkMode ? "#343536" : "gray.300"}>
           <ModalHeader
              display='flex'
              flexDirection="column"
@@ -216,7 +220,7 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
 
 
 
-          <ModalFooter bg="gray.100" borderRadius="0px 0px 10px 10px" >
+          <ModalFooter bg={isDarkMode ? "#101113" : "gray.100"} borderRadius="0px 0px 10px 10px"  >
             <Button 
             variant="outline"
             height="30px"
