@@ -13,7 +13,7 @@ export const UserIcon = () => {
 
     const {isDarkMode} = useThemeStore();
     return (
-        <Flex>
+        <Flex display={{base: 'none', md: 'flex'}}>
 
             <Flex
                 display={{ base: 'none', md: 'flex' }}

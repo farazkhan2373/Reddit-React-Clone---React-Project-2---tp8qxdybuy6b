@@ -35,12 +35,12 @@ export const Navbar = () => {
 
   return (
     <Flex bg={isDarkMode ? "#1A1A1B" : 'white'} height='44px' 
-          padding='6px 12px'
+          padding={{base: '6px 0px', md: '6px 12px'}}
           justify={{md: 'space-between'}}
           borderBottom={isDarkMode && '1px solid'}
           borderBottomColor={isDarkMode && '#343536'}
           position="sticky"
-          top="0px"
+          top={0}
           zIndex="999"
 
           >
@@ -51,8 +51,9 @@ export const Navbar = () => {
              mr={{base: 0, md: 2}}
              cursor='pointer'
              onClick={handleLogoClick}
+             display={{base: isLoggedIn && 'none', md: 'flex'}}
              >
-        <Image src="/images/redditFace.svg" height='30px'/>
+        <Image src="/images/redditFace.svg" height='30px'  />
         <Image src={isDarkMode ? "/images/redditWhiteText.svg" : "/images/redditText.svg"} 
         height={isDarkMode ? "16px" : "46px"}
         ml={isDarkMode && 1}

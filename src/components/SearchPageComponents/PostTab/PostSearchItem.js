@@ -42,6 +42,7 @@ export const PostSearchItem = ({ post }) => {
                         spacing={0.6}
                         align="center"
                         fontSize="9pt"
+                        flexWrap='wrap'
                     >
 
                         {post.channel ? post.channel.image ? <Image src={post.channel.image}
@@ -85,9 +86,9 @@ export const PostSearchItem = ({ post }) => {
 
             {post.images.length > 0 && <Stack p="8px 0px" alignSelf="flex-end" ml={2}>
                 <Image src={post.images[0]}
-                    height="98px"
-                    minWidth="134px"
-                    maxWidth="134px"
+                    height={{base: "90px", md: "98px"}}
+                    minWidth={{base: '100px', md: "134px"}}
+                    maxWidth={{base: '100px', md: "134px"}}
                     objectFit="cover"
                     borderRadius="4px"
                 />

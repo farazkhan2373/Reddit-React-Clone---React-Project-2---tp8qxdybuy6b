@@ -31,8 +31,46 @@ export const Communities = ({ createdCommunityData, handleCommunityClick, userFo
       {/* MENU BOX */}
       <Box mt={3} mb={3} >
 
+         {/* FEEDS HOME POPULAR */}
+         <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+          FEEDS
+        </Text>
+        <MenuItem
+          width='100%'
+          fontSize='10pt'
+          bg={isDarkMode && "#1a1a1b"}
+          color={isDarkMode && "#d7dadc"}
+          _hover={{ bg: isDarkMode ? "#343536" : "gray.100" }}
+          onClick={(e) => handleCommunityClick(e)}
+        >
+          <Flex align='center'>
+            <Icon as={TiHome}
+              fontSize={20}
+              mr={2}
+            />
+            Home
+          </Flex>
+        </MenuItem>
+
+        <MenuItem
+          width='100%'
+          fontSize='10pt'
+          bg={isDarkMode && "#1a1a1b"}
+          color={isDarkMode && "#d7dadc"}
+          _hover={{ bg: isDarkMode ? "#343536" : "gray.100" }}
+        >
+          <Flex align='center'>
+            <Icon as={FaArrowUpRightDots}
+              fontSize={20}
+              mr={2}
+            />
+            Poplular
+          </Flex>
+        </MenuItem>
+
+
         {/* MODERATING COMMUNITIES LIST */}
-        <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+        <Text pl={3} mt={2} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
           MODERATING
         </Text>
 
@@ -75,43 +113,7 @@ export const Communities = ({ createdCommunityData, handleCommunityClick, userFo
         }
 
 
-        {/* FEEDS HOME POPULAR */}
-        <Text pl={3} mb={1} mt={2} fontSize="7pt" fontWeight={500} color="gray.500">
-          FEEDS
-        </Text>
-        <MenuItem
-          width='100%'
-          fontSize='10pt'
-          bg={isDarkMode && "#1a1a1b"}
-          color={isDarkMode && "#d7dadc"}
-          _hover={{ bg: isDarkMode ? "#343536" : "gray.100" }}
-          onClick={(e) => handleCommunityClick(e)}
-        >
-          <Flex align='center'>
-            <Icon as={TiHome}
-              fontSize={20}
-              mr={2}
-            />
-            Home
-          </Flex>
-        </MenuItem>
-
-        <MenuItem
-          width='100%'
-          fontSize='10pt'
-          bg={isDarkMode && "#1a1a1b"}
-          color={isDarkMode && "#d7dadc"}
-          _hover={{ bg: isDarkMode ? "#343536" : "gray.100" }}
-        >
-          <Flex align='center'>
-            <Icon as={FaArrowUpRightDots}
-              fontSize={20}
-              mr={2}
-            />
-            Poplular
-          </Flex>
-        </MenuItem>
-
+       
       </Box>
     </>
   )

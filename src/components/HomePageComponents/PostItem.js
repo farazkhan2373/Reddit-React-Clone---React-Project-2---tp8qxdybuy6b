@@ -2,7 +2,7 @@ import { Flex, Icon, Image, Stack, Text, chakra } from '@chakra-ui/react'
 import React from 'react'
 import { IoArrowUpCircleOutline, IoArrowDownCircleOutline, IoArrowUpCircleSharp, IoArrowRedoOutline, IoBookmarkOutline } from 'react-icons/io5'
 import { BsChat } from 'react-icons/bs';
-import { FaReddit } from 'react-icons/fa';
+import { FaReddit, FaRegEdit } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
 import { CiEdit } from 'react-icons/ci';
 import userLogInStore from '../../store/AuthenticationStore/userLogInStore';
@@ -82,6 +82,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             spacing={0.6}
             align="center"
             fontSize="9pt"
+            flexWrap="wrap"
           >
             {post.channel ? post.channel.image ? <Image src={post.channel.image}
               height={6}
@@ -150,7 +151,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             cursor="pointer"
           >
             <Icon as={IoArrowRedoOutline} mr={2} />
-            <Text fontSize="9pt">Share</Text>
+            <Text fontSize="9pt" display={{base: 'none', md: 'block'}}>Share</Text>
           </Flex>
 
           <Flex
@@ -161,7 +162,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
             cursor="pointer"
           >
             <Icon as={IoBookmarkOutline} mr={2} />
-            <Text fontSize="9pt">Save</Text>
+            <Text fontSize="9pt" display={{base: 'none', md: 'block'}}>Save</Text>
           </Flex>
 
           {isLoggedIn && post.author._id === loggedInUserDetails._id && (
@@ -173,8 +174,8 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
               cursor="pointer"
               onClick={() => editPost(post)}
             >
-              <Icon as={CiEdit} mr={2} />
-              <Text fontSize="9pt">Edit</Text>
+              <Icon as={FaRegEdit} mr={2} />
+              <Text fontSize="9pt" display={{base: 'none', md: 'block'}}>Edit</Text>
             </Flex>
           )}
 
@@ -192,7 +193,7 @@ export const PostItem = ({ post, increaseVote, decreaseVote, deletePost, editPos
                 onClick={() => deletePost(post._id)}
               >
                 <Icon as={MdDeleteOutline} mr={2} />
-                <Text fontSize="9pt">Delete</Text>
+                <Text fontSize="9pt" display={{base: 'none', md: 'block'}}>Delete</Text>
               </Flex>
 
             )}
