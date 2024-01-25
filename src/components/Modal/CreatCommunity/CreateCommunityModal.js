@@ -61,12 +61,13 @@ export const CreateCommunityModal = ({showCommunityModal, handleClose}) => {
   const createGroup = async (groupName)=>{
         const config = getHeadersWithUserToken();
 
-        const body = {
-          name: groupName
-        }
+        const formData = new FormData();
+        formData.append('name', groupName);
+
+       
 
         try{
-          const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', body, config);
+          const response = await axios.post('https://academics.newtonschool.co/api/v1/reddit/channel/', formData, config);
           console.log("create comm response", response.data);
           navigateTo(`/community/${response.data.data._id}`);
           sessionStorage.setItem('menuButtonText', `r/${response.data.data.name}`);

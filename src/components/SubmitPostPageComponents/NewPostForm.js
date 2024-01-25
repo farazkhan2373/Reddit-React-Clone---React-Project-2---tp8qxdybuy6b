@@ -85,7 +85,7 @@ export const NewPostForm = ({ channelId }) => {
     function handleCreatePost() {
 
         if(textInputs.title.length > 100){
-            setErrorMsg("Title characters can't be greater than 100");
+            setErrorMsg("Title characters can't be more than 100");
             return;
         }
         
@@ -102,6 +102,8 @@ export const NewPostForm = ({ channelId }) => {
             postData.append('images', uploadedImage, uploadedImage.name);
             console.log("uploading image", uploadedImage);
           }
+
+         
 
 
         createPost(postData);
