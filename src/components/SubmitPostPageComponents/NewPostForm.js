@@ -100,7 +100,7 @@ export const NewPostForm = ({ channelId }) => {
 
         if (uploadedImage) {  
             postData.append('images', uploadedImage, uploadedImage.name);
-            console.log("uploading image", uploadedImage);
+            // console.log("uploading image", uploadedImage);
           }
 
          
@@ -117,12 +117,13 @@ export const NewPostForm = ({ channelId }) => {
 
         if (e.target.files?.[0]) {
             reader.readAsDataURL(e.target.files[0]);
-            setUploadedImage(e.target.files[0]);
+            setUploadedImage(e.target.files[0]); // by uploadedImage state I will send in api 
+            console.log("selected images", e.target.files[0]);
         }
 
         reader.onload = (readerEvent) => {
             if (readerEvent.target?.result) {
-                setSelectedFile(readerEvent.target.result);
+                setSelectedFile(readerEvent.target.result); // by selectedFile state I will dispay on ui
             }
         };
 
