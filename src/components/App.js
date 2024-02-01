@@ -9,6 +9,7 @@ import { CommentPage } from "../pages/CommentPage/CommentPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
 import { RedditPremium } from "../pages/RedditPremium/RedditPremium";
 import { ProfilePage } from "../pages/ProfilePage/ProfilePage";
+import { CommunityNotFound } from "./CommunityPageComponent/CommunityNotFound";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/redditpremium" element={<RedditPremium />} />
         <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route path="/*" element={<CommunityNotFound />} />
        </Routes>
     </div>
     
