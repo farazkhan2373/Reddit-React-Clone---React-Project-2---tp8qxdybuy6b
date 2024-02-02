@@ -64,13 +64,13 @@ export const UserMenuModal = () => {
   return (
     <Menu>
       {/* IF USER IS LOGGED IN THEN SHOW MENU BUTTON */}
-      <MenuButton
+      {isLoggedIn && <MenuButton
         cursor='pointer'
         padding='0px 6px'
         borderRadius={4}
         _hover={{ outline: "1px solid", outlineColor: isDarkMode ? "#343536" : "gray.300" }}
       >
-        {isLoggedIn &&
+        {/* {isLoggedIn && */}
           <Flex align='center'>
             <Flex align='center'>
               <>
@@ -103,8 +103,8 @@ export const UserMenuModal = () => {
               <ChevronDownIcon color={isDarkMode && "#d7dadc"} />
             </Flex>
           </Flex>
-        }
-      </MenuButton>
+        
+      </MenuButton>}
       <MenuList border={isDarkMode ? "1px solid #343536" : "none" } bg={isDarkMode ? "#1a1a1b" : "white"}>
         <MenuItem
           fontSize='10pt'

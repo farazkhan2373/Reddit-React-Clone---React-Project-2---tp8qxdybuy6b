@@ -36,8 +36,7 @@ export const theme = extendTheme({
     
     body: {
         bg: getTheme() ? "black" : "gray.200",
-          // bg: "#030303" // reddit dark mode
-         // bg: "black" // final
+          
     }
    }),
   },
