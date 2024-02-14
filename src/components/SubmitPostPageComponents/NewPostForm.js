@@ -95,7 +95,7 @@ export const NewPostForm = ({ channelId }) => {
         postData.append('title', textInputs.title);
         postData.append('content', textInputs.content);
         if(channelId){
-        postData.append('channelID', channelId);
+        postData.append('channelId', channelId);
         }
 
         if (uploadedImage) {  
