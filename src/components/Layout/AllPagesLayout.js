@@ -6,8 +6,7 @@ export const AllPagesLayout = ({ children }) => {
     const {isDarkMode} = useThemeStore();
     return (
         // border="1px solid black"
-        <Flex justify="center" p="16px 0px" >
-            
+        <Flex justify="center" p="16px 0px" >           
 
             <Flex
              width="95%"
@@ -16,6 +15,7 @@ export const AllPagesLayout = ({ children }) => {
             //  border="1px solid red"
              padding={2}
             >
+
                 {/* LHS */}
                 <Flex
                  direction='column'
@@ -35,6 +35,8 @@ export const AllPagesLayout = ({ children }) => {
                 >
                     {children && children[1]}
                 </Flex>
+
+
             </Flex>
 
         </Flex>

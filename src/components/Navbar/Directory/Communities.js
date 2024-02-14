@@ -26,6 +26,7 @@ export const Communities = ({ createdCommunityData, handleCommunityClick, userFo
 
   return (
     <>
+    {/* CREATE COMMUNITY MODAL */}
       <CreateCommunityModal showCommunityModal={showCommunityModal} handleClose={() => setCommunityModal(false)} />
 
       {/* MENU BOX */}

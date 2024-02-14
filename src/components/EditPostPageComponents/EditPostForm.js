@@ -73,7 +73,7 @@ export const EditPostForm = ({ channelId, postDetails, postId }) => {
         postData.append('title', textInputs.title);
         postData.append('content', textInputs.content);
 
-        // if (postDetails.images.length > 0) {
+        // if(postDetails.images.length > 0) {
         //     console.log("appending image")
         //     postData.append('images', postDetails.images[0]);
         // }

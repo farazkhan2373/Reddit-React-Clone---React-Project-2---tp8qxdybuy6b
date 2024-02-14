@@ -29,7 +29,7 @@ import useUpdateDirectory from '../../../store/DirectoryStore/useUpdateDirectory
 export const Directory = () => {
   const { isLoggedIn, setIsLoggedIn } = userLogInStore();
   const { menuButtonText, setMenuButtonText } = useMenuButtonTextStore();
-  const [createdCommunityData, setCreatedCommunityData] = useState(null);
+  const [createdCommunityData, setCreatedCommunityData] = useState(null); // user created community array 
 
   const communityFollowed = JSON.parse(sessionStorage.getItem('communityFollowed'));
   const [userFollowedCommunity, setUserFollowedCommunity] = useState(null);
